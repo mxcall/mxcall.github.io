@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://gitee.com/matrixcall/bed001/raw/master/hexo/img/web-icon.png">
+  <link rel="icon" type="image/png" href="https://gitee.com/matrixcall/bed001/raw/master/hexo/img/favicon-light.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="Blog of mxcall">
+  <meta name="author" content="陆压的HUB">
+  <meta name="keywords" content="java,k8s,docker,devops">
+  <title>Idea进阶快捷键 - 陆压的HUB</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/xcode.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>陆压的HUB</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="iconfont icon-home-fill"></i>
+              首页</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">
+              <i class="iconfont icon-archive-fill"></i>
+              归档</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">
+              <i class="iconfont icon-category-fill"></i>
+              分类</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">
+              <i class="iconfont icon-tags-fill"></i>
+              标签</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">
+              <i class="iconfont icon-user-fill"></i>
+              关于</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/posts/comments/">
+              <i class="iconfont icon-twitch-fill"></i>
+              留言</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/links/">
+              <i class="iconfont icon-link-fill"></i>
+              友链</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://gitee.com/matrixcall/bed001/raw/master/hexo/img/banner-light.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.1)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            <div class="mt-3 post-meta">
+              
+                  <div class="post-meta mr-3">
+                  <i class="iconfont icon-category"></i>
+                  
+                      <a class="hover-with-bg" style="color: #fff;" href="/categories/%E5%B7%A5%E4%BD%9C/">工作</a>
+                  
+                      <a class="hover-with-bg" style="color: #fff;" href="/categories/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/">程序员</a>
+                  
+                      <a class="hover-with-bg" style="color: #fff;" href="/categories/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/ide/">ide</a>
+                  
+                  <i class="iconfont icon-tags"></i>
+                  
+                      <a class="hover-with-bg" style="color: #fff;" href="/tags/idea/">idea</a>
+                  
+                      <a class="hover-with-bg" style="color: #fff;" href="/tags/ide/">ide</a>
+                  
+                  </div>
+              
+            </div>
+
+            
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2020-05-29 08:00">
+                    2020年5月29日 早上
+                  </time>
+                </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    481 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    5
+                     分钟
+                  </span>
+                
+
+                
+                
+              </div>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h1 id="Idea进阶快捷键"><a href="#Idea进阶快捷键" class="headerlink" title="Idea进阶快捷键"></a>Idea进阶快捷键</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>用了idea也有2, 3年了, 大部分常用快捷键都已经熟记于心, 逛知乎偶然看到个帖子, 才发现还有下面这些骚操作.</p>
+<h2 id="进阶快捷键"><a href="#进阶快捷键" class="headerlink" title="进阶快捷键"></a>进阶快捷键</h2><p>每次发现好用的快捷键, 总是当时记住了, 但是后面用的少了就忘记了; 其实记idea快捷键也是有方法的!!</p>
+<p>你仅仅需要记一个<code>神级</code> 快捷键就好了, 其它的记个英文关键字就OK了</p>
+<h3 id="神级快捷键"><a href="#神级快捷键" class="headerlink" title="神级快捷键"></a>神级快捷键</h3><p>效果1: 仅仅举例, 里面什么操作都可以, 输入关键字即可<br><img src="https://gitee.com/matrixcall/bed001/raw/master/img/2020/05/20200528162452.gif" srcset="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/img/loading.gif" alt=""></p>
+<p>打开命令面板</p>
+<pre><code class="hljs plain">英文关键字: Find Action
+用法: Find Action 后, 输入其它快捷键关键字即可调用其他牛逼快捷键
+ctrl + shift + a</code></pre>
+
+
+
+
+<h3 id="其它键"><a href="#其它键" class="headerlink" title="其它键"></a>其它键</h3><p>列操作效果1: </p>
+<p><img src="https://gitee.com/matrixcall/bed001/raw/master/img/2020/05/20200528155311.webp" srcset="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/img/loading.gif" alt=""></p>
+<p>列操作效果2:<br><img src="https://gitee.com/matrixcall/bed001/raw/master/img/2020/05/20200528155834.webp" srcset="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/img/loading.gif" alt=""></p>
+<p>添加下一个匹配项</p>
+<pre><code class="hljs plain">英文关键字: Add selection for next occurrence
+用法: 不用搜索, 就能选中下一个相同字符串, 并能让他们同时处于编辑状态
+alt + j</code></pre>
+
+<p>选择所有匹配项</p>
+<pre><code class="hljs plain">英文关键字: select all occurrences
+用法: 扩展了alt+j, 选中单页所有相同字符串, 并处于编辑状态
+ctrl + shift + alt + j</code></pre>
+
+
+
+<p>光标上移一行(创建新行)</p>
+<pre><code class="hljs plain">英文关键字: start new line before current
+用法: 反义是shift+ enter; 即 无论光标在哪, 下移移&#x2F;上移一行 
+ctrl + alt + enter</code></pre>
+
+
+
+<p>在面板中选择</p>
+<pre><code class="hljs plain">英文关键字: select in
+用法: 可以关联代码和左侧 导航project, 也可以关联打开windows 文件管理器
+alt + f1</code></pre>
+
+
+
+<p>查询实现类</p>
+<pre><code class="hljs plain">英文关键字: type hierarchy
+用法: 以前一直是调用的(implementations, ctrl+ alt+B), 但是这个会查询所有子类, 有时候仅仅想查看一级子类, 或者子类之间的层级关系(学习源码时), 可以用到这个快捷键
+ctrl + H</code></pre>
+
+
+
+
+
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="https://github.com/xiaoxiunique/tool-tips" target="_blank" rel="noopener">https://github.com/xiaoxiunique/tool-tips</a></p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%B7%A5%E4%BD%9C/">工作</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/">程序员</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/ide/">ide</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/idea/">idea</a>
+                    
+                      <a class="hover-with-bg" href="/tags/ide/">ide</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                <img src="https://gitee.com/matrixcall/bed001/raw/master/hexo/img/wx_gzh.png" srcset="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/img/loading.gif" style="width:450px"/>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/javaSE/FastJson%E8%BF%81%E7%A7%BB%E8%87%B3Jackson/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">FastJson迁移至Jackson</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/posts/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/flink/Flink1.10Container%E7%8E%AF%E5%A2%83%E5%AE%9E%E6%88%98(%E8%BD%AC%E8%BD%BD)/">
+                        <span class="hidden-mobile">Flink1.10Container环境实战(转载)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <script defer src="https://utteranc.es/client.js"
+          repo="mxcall/mx-comment"
+          issue-term="pathname"
+  
+          label="utterances"
+    
+          theme="github-light"
+          crossorigin="anonymous"
+  >
+  </script>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/js/main.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 3,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Idea进阶快捷键&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

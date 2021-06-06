@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://gitee.com/matrixcall/bed001/raw/master/hexo/img/web-icon.png">
+  <link rel="icon" type="image/png" href="https://gitee.com/matrixcall/bed001/raw/master/hexo/img/favicon-light.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="Blog of mxcall">
+  <meta name="author" content="陆压的HUB">
+  <meta name="keywords" content="java,k8s,docker,devops">
+  <title>K8S学习笔记(极客时间01-15) - 陆压的HUB</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/xcode.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>陆压的HUB</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="iconfont icon-home-fill"></i>
+              首页</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">
+              <i class="iconfont icon-archive-fill"></i>
+              归档</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">
+              <i class="iconfont icon-category-fill"></i>
+              分类</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">
+              <i class="iconfont icon-tags-fill"></i>
+              标签</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">
+              <i class="iconfont icon-user-fill"></i>
+              关于</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/posts/comments/">
+              <i class="iconfont icon-twitch-fill"></i>
+              留言</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/links/">
+              <i class="iconfont icon-link-fill"></i>
+              友链</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://gitee.com/matrixcall/bed001/raw/master/hexo/img/banner-light.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.1)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            <div class="mt-3 post-meta">
+              
+                  <div class="post-meta mr-3">
+                  <i class="iconfont icon-category"></i>
+                  
+                      <a class="hover-with-bg" style="color: #fff;" href="/categories/%E5%B7%A5%E4%BD%9C/">工作</a>
+                  
+                      <a class="hover-with-bg" style="color: #fff;" href="/categories/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/">程序员</a>
+                  
+                      <a class="hover-with-bg" style="color: #fff;" href="/categories/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/k8s/">k8s</a>
+                  
+                  <i class="iconfont icon-tags"></i>
+                  
+                      <a class="hover-with-bg" style="color: #fff;" href="/tags/k8s/">k8s</a>
+                  
+                      <a class="hover-with-bg" style="color: #fff;" href="/tags/docker/">docker</a>
+                  
+                  </div>
+              
+            </div>
+
+            
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2020-05-25 00:30">
+                    2020年5月25日 凌晨
+                  </time>
+                </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    4.4k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    55
+                     分钟
+                  </span>
+                
+
+                
+                
+              </div>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h2 id="小鲸鱼大事记"><a href="#小鲸鱼大事记" class="headerlink" title="小鲸鱼大事记"></a>小鲸鱼大事记</h2><h3 id="docker-与传统Paas区别"><a href="#docker-与传统Paas区别" class="headerlink" title="docker 与传统Paas区别"></a>docker 与传统Paas区别</h3><pre><code class="hljs plain">其实没区别, 都是用Cgroups和Namespace去隔离应用环境, 但是Docker凭借:
+简单的打包方式 + 本地环境与云端环境高度一致 + 以开发者为核心(简单化)
+就这个3个小的tip打败了如日中天的Cloud Foundry(Paas代表), 衰败的原因是因为:
+想凭借docker撼动传统大厂, 结果被k8s打败...
+容器本身价值不大,有价值的是容器编排</code></pre>
+
+
+<h2 id="白话容器基础"><a href="#白话容器基础" class="headerlink" title="白话容器基础"></a>白话容器基础</h2><blockquote>
+<p>容器本质: <strong>只是一种特殊的进程</strong></p>
+</blockquote>
+<blockquote>
+<p>容器设计理念: <strong>容器和应用能够同生命周期</strong></p>
+</blockquote>
+<blockquote>
+<p>用cgroup 控制资源 ,用namespace 控制该进程对 其他进程的视图</p>
+</blockquote>
+<blockquote>
+<p>namespace构建出进程的围墙;cgroup构建出进程的天空; rootfs和mount namespace 构建出进程的大地</p>
+</blockquote>
+<h3 id="核心技术namespace"><a href="#核心技术namespace" class="headerlink" title="核心技术namespace"></a>核心技术namespace</h3><pre><code class="hljs plain">核心作用: 是修改进程视图,
+本质上是: 创建进程时的一个参数;设置该进程对其他进程的可视边界;
+除了进程的pid namespace, 还有Mount、UTS、IPC、Network 和 User 这些namespace</code></pre>
+
+
+<h3 id="核心技术cgroup"><a href="#核心技术cgroup" class="headerlink" title="核心技术cgroup"></a>核心技术cgroup</h3><pre><code class="hljs plain">核心作用:根据cgroup的目录内容, 来控制具体某个进程使用的 各种资源(cpu内存等等)
+mount -t cgroup
+ 
+ 
+缺点:
+1. 隔离性不高,如top命令查看的内存cpu仍然是宿主机的而不是容器配置的;如修改时间会影响宿主机时间;
+ 
+缺点修复:
+1. 用lxcfs(linux container file system)修复top以及free与容器资源不一致的问题</code></pre>
+
+
+<h3 id="容器镜像-rootfs-根文件系统"><a href="#容器镜像-rootfs-根文件系统" class="headerlink" title="容器镜像=rootfs=根文件系统"></a>容器镜像=rootfs=根文件系统</h3><pre><code class="hljs plain">- 其中包含除了内核外 （&#x2F;boot文件夹下面）的所有系统文件
+- 所以修改内核相关操作会直接影响 宿主机</code></pre>
+
+
+<p>可以在宿主机找到容器运行的具体目录</p>
+<pre><code class="hljs plain">1. docker ps
+2. docker inspect xx
+3. 找到GraphDriver
+&quot;GraphDriver&quot;: &#123;
+        &quot;Data&quot;: &#123;
+            &quot;LowerDir&quot;: &quot;&#x2F;var&#x2F;docker&#x2F;docker-root&#x2F;overlay2&#x2F;55c6a4e-init&#x2F;diff:&#x2F;var&#x2F;docker&#x2F;docker-root&#x2F;overlay2&#x2F;848abf14&quot;,
+            &quot;MergedDir&quot;: &quot;&#x2F;var&#x2F;docker&#x2F;docker-root&#x2F;overlay2&#x2F;55c6a4e&#x2F;merged&quot;,
+            &quot;UpperDir&quot;: &quot;&#x2F;var&#x2F;docker&#x2F;docker-root&#x2F;overlay2&#x2F;55c6a4e&#x2F;diff&quot;,
+            &quot;WorkDir&quot;: &quot;&#x2F;var&#x2F;docker&#x2F;docker-root&#x2F;overlay2&#x2F;55c6a4e&#x2F;work&quot;
+        &#125;,
+        &quot;Name&quot;: &quot;overlay2&quot;
+&#125;
+4. 进入MergedDir目录即可找到
+5. 其中
+LowerDir:  镜像层;即image层, 只读
+UpperDir:  容器层,指运行时产生的文件, 可读写
+MergedDir: 挂载了LowerDir和UpperDir后的真正文件视图;
+WorkDir:   用来实现copy_up操作, 暂时没有测试出来,</code></pre>
+
+
+<h3 id="有个xxxx-init层"><a href="#有个xxxx-init层" class="headerlink" title="有个xxxx-init层"></a>有个xxxx-init层</h3><pre><code class="hljs plain">挂载一些&#x2F;etc&#x2F;hosts ,&#x2F;etc&#x2F;hostname, &#x2F;etc&#x2F;resolv.conf等文件;
+这些文件的修改不会提交(docker commit)到真正的镜像仓库中;
+并且可以通过docker run --参数来动态的启动时修改;</code></pre>
+
+
+<h3 id="文件系统分层技术"><a href="#文件系统分层技术" class="headerlink" title="文件系统分层技术"></a>文件系统分层技术</h3><pre><code class="hljs plain">1. 增加: 即在容器层UpperDir添加文件;
+2. 修改: 若修改只读层数据LowerDir, 则要copy-on-write, 即写的时候复制到容器层, 后续打成镜像后会覆盖只读层的同名文件, 会影响写入效率; 若修改容器层UpperDir数据, 则直接修改;
+3. 查找: 根据对应的docker驱动, 一层层向下查找
+4. 删除: 通过whiteout(白障)技术, 新建一个同名的0kb的文件, 即仅仅在上层标记它删除,
+这就是为什么容器镜像会做的比较大的原因, 因为如果你不在当层把无关文件删除, 后续就没有机会删除了,仅仅是标记删除</code></pre>
+
+
+
+
+
+<h3 id="Volume"><a href="#Volume" class="headerlink" title="Volume"></a>Volume</h3><pre><code class="hljs plain">Dockerfile里面的 VOLUME &#x2F;xx 和 docker run -v &#x2F;xx
+这种写法都是强制挂载的意思, 以前只写过-v &#x2F;xxx:&#x2F;test;
+简单的说, 就是强行在宿主机上新建个随机uuid名字的文件夹, 然后挂载到容器里面, 容器里面这个目录的读写全部会映射到宿主机上的随机uuid目录;
+可以用 docker run -v &#x2F;xxx:&#x2F;test  来覆盖这个写法, 即指定具体的宿主机目录,而不是随机uuid目录;</code></pre>
+
+
+<h3 id="EntryPoint"><a href="#EntryPoint" class="headerlink" title="EntryPoint"></a>EntryPoint</h3><pre><code class="hljs plain">默认即不指定时是隐含的, 值为&#x2F;bin&#x2F;sh -c &quot;&#x2F;bin&#x2F;bash -l&quot;</code></pre>
+
+
+
+
+
+
+<p><img src="https://cdn.jsdelivr.net/gh/matrixcall/bed001@master/img/2019/01/20191216144754.png" srcset="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/img/loading.gif" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/matrixcall/bed001/img/2020/05/20200524141649.png" srcset="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/img/loading.gif" alt=""></p>
+<h2 id="从容器到容器云"><a href="#从容器到容器云" class="headerlink" title="从容器到容器云"></a>从容器到容器云</h2><blockquote>
+<p>CNI（Container Networking Interface）和 CSI（Container Storage Interface）</p>
+</blockquote>
+<h3 id="个人思考"><a href="#个人思考" class="headerlink" title="个人思考:"></a>个人思考:</h3><pre><code class="hljs plain">代码级别的面向对象 提升到 架构级别;如组合设计模式(devops),
+描述的容器间的依赖关系(更细粒度)编排 , 而不仅仅是调度(分配到合适机器上);
+整套解决方案CNCF;</code></pre>
+
+
+
+
+
+
+<h3 id="声明式api-和-命令式api"><a href="#声明式api-和-命令式api" class="headerlink" title="声明式api 和 命令式api"></a>声明式api 和 命令式api</h3><pre><code class="hljs plain">1. 声明式example: 告诉机器想要的是什么, 面向对象编程! 项目经理, 中午聚餐, 你定个地方; SQL, Lambda, antdesign(js), 给参数or属性
+已存在通用算法去解决问题，所以程序员只需要准确地描述待解决的任务就可以了，而不需要描述一个算法去解决问题。
+ 
+2. 命令式example: 告诉机器如何去做, 面向过程编程 ! 架构师程序员, 中午聚餐, 你.......;存储过程, 手动for循环, html(tr,td), 给具体的method方法
+基于伪代码和机器语言的传统方法。即How: 发现解决问题的算法，再用指令序列来表达这个算法, 适用于设计一个特定程序来解决问题;</code></pre>
+
+
+
+
+
+<h3 id="kubernetes成功原因-降维打击"><a href="#kubernetes成功原因-降维打击" class="headerlink" title="kubernetes成功原因: (降维打击)"></a>kubernetes成功原因: (降维打击)</h3><pre><code class="hljs plain">所以，相比于“小打小闹”的 Docker 公司、“旧瓶装新酒”的 Mesos 社区，Kubernetes 项目从一开始就比较幸运地站上了一个他人难以企及的高度：在它的成长阶段，这个项目每一个核心特性的提出，几乎都脱胎于 Borg&#x2F;Omega 系统的设计与经验(本来不可能开源的)。更重要的是，这些特性在开源社区落地的过程中，又在整个社区的合力之下得到了极大的改进，修复了很多当年遗留在 Borg 体系中的缺陷和问题。
+从一开始，Kubernetes 项目就没有像同时期的各种“容器云”项目那样，把 Docker 作为整个架构的核心，而仅仅把它作为最底层的一个容器运行时实现。运行在大规模集群中的各种任务之间，实际上存在着各种各样的关系(ds,deploy)。这些关系的处理，才是作业编排和管理系统最困难的地方。
+Kubernetes 项目最主要的设计思想是，从更宏观的角度，以统一的方式来定义任务之间的各种关系，并且为将来支持更多种类的关系留有余地。</code></pre>
+
+
+
+
+
+
+<h3 id="调度-和-编排-区别"><a href="#调度-和-编排-区别" class="headerlink" title="调度 和 编排 区别"></a>调度 和 编排 区别</h3><pre><code class="hljs plain">过去很多的集群管理项目（比如 Yarn、Mesos，以及 Swarm）所擅长的，都是把一个容器，按照某种规则，放置在某个最佳节点上运行起来。这种功能，我们称为“调度”。
+ 
+而 Kubernetes 项目所擅长的，是按照用户的意愿和整个系统的规则，完全自动化地处理好容器之间的各种关系。这种功能，就是我们经常听到的一个概念：编排。</code></pre>
+
+
+<h2 id="搭建集群"><a href="#搭建集群" class="headerlink" title="搭建集群"></a>搭建集群</h2><h3 id="yaml执行"><a href="#yaml执行" class="headerlink" title="yaml执行"></a>yaml执行</h3><pre><code class="hljs plain">作为用户, 我不管是create -f 还是 replace -f, 始终用
+kubectl apply -f xx.yaml</code></pre>
+
+
+<h3 id="yaml对象"><a href="#yaml对象" class="headerlink" title="yaml对象"></a>yaml对象</h3><pre><code class="hljs plain">一般由metadata + spec 组成</code></pre>
+
+<h3 id="根据label过滤"><a href="#根据label过滤" class="headerlink" title="根据label过滤"></a>根据label过滤</h3><pre><code class="hljs plain">kubectl get pods -l app&#x3D;nginx</code></pre>
+
+
+
+
+
+
+<h3 id="相关坑"><a href="#相关坑" class="headerlink" title="相关坑:"></a>相关坑:</h3><pre><code class="hljs plain">https:&#x2F;&#x2F;blog.csdn.net&#x2F;liukuan73&#x2F;article&#x2F;details&#x2F;83116271
+https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;b77635125524
+ 
+ 
+# 查询apt版本
+apt-cache madison xxx
+apt-get install docker-ce&#x3D;上面查询的版本
+# 修改hostname
+hostnamectl set-hostname k8s-02
+vim &#x2F;etc&#x2F;hosts
+# 提前拉镜像
+kubeadm config images list
+docker pull registry.cn-hangzhou.aliyuncs.com&#x2F;google_containers&#x2F;kubernetes-dashboard-amd64:v1.10.1
+docker tag registry.cn-hangzhou.aliyuncs.com&#x2F;google_containers&#x2F;kubernetes-dashboard-amd64:v1.10.1 k8s.gcr.io&#x2F;kubernetes-dashboard-amd64:v1.10.1
+# 初始化
+kubeadm init --kubernetes-version&#x3D;v1.13.4
+kubeadm init --apiserver-advertise-address&#x3D;10.1.100.11 --pod-network-cidr&#x3D;172.16.0.0&#x2F;16 --service-cidr&#x3D;10.233.0.0&#x2F;16 --kubernetes-version&#x3D;v1.12.7
+kubeadm join 10.1.100.11:6443 --token l5xqm7.bzegizogtovree1v --discovery-token-ca-cert-hash sha256:cc4e1812fa98c98c881470cb46c2d77c6f0596927eb13b6ad6da59a2f5a50d9f
+ 
+ 
+# 镜像加速&#x2F;etc&#x2F;docker&#x2F;daemon.json
+&#123;
+    &quot;registry-mirrors&quot;: [&quot;https:&#x2F;&#x2F;u4ag1zcm.mirror.aliyuncs.com&quot;],
+    &quot;insecure-registries&quot;: [
+        &quot;hub.docker.com&quot;
+    ]
+&#125;
+# 代理
+mkdir &#x2F;etc&#x2F;systemd&#x2F;system&#x2F;docker.service.d
+vim  &#x2F;etc&#x2F;systemd&#x2F;system&#x2F;docker.service.d&#x2F;http-proxy.conf
+[Service]
+Environment&#x3D;&quot;HTTP_PROXY&#x3D;http:&#x2F;&#x2F;10.1.0.2:1081&quot;
+Environment&#x3D;&quot;HTTPS_PROXY&#x3D;http:&#x2F;&#x2F;10.1.0.2:1081&quot;
+Environment&#x3D;&quot;NO_PROXY&#x3D;localhost,127.0.0.0&#x2F;8,10.1.0.0&#x2F;16,172.16.0.0&#x2F;16,10.233.0.0&#x2F;16,hub.docker.com,registry.cn-hangzhou.aliyuncs.com&quot;
+# 网络插件
+kubectl apply -f &quot;https:&#x2F;&#x2F;cloud.weave.works&#x2F;k8s&#x2F;net?k8s-version&#x3D;$(kubectl version | base64 | tr -d &#39;\n&#39;)&quot;
+# iptables
+net.ipv4.ip_forward&#x3D;1
+net.bridge.bridge-nf-call-ip6tables &#x3D; 1
+net.bridge.bridge-nf-call-iptables &#x3D; 1
+&gt;sysctl -p
+报错sysctl: cannot stat &#x2F;proc&#x2F;sys&#x2F;net&#x2F;bridge&#x2F;bridge-nf-call-ip6tables: No such file or directory
+&gt;modprobe br_netfilter
+&gt;sysctl --system</code></pre>
+
+
+
+
+
+<h2 id="StatefulSet"><a href="#StatefulSet" class="headerlink" title="StatefulSet"></a>StatefulSet</h2><h3 id="测试容器内网络"><a href="#测试容器内网络" class="headerlink" title="测试容器内网络"></a>测试容器内网络</h3><pre><code class="hljs plain">kubectl run -it --rm  --restart&#x3D;Never --image busybox:1.28.4 test-dns &#x2F;bin&#x2F;sh
+环境(一个master, 一个node, coredns)
+1. busybox的版本要控制在1.28.4以下
+kubectl run -i --tty --image busybox:1.28.4 dns-test --restart&#x3D;Never --rm &#x2F;bin&#x2F;sh
+2. 主从节点时间要一致
+3. 从节点拷贝主节点的admin.conf文件到从节点
+4. 重启kubelet docker
+完了之后发现 两天解析不到的dns 竟然成功了</code></pre>
+
+<h3 id="pv-pvc是如何找到他对应的pv的"><a href="#pv-pvc是如何找到他对应的pv的" class="headerlink" title="pv, pvc是如何找到他对应的pv的"></a>pv, pvc是如何找到他对应的pv的</h3><pre><code class="hljs plain">试着回答一下：
+1、 指定了storageClassName的pv, 只有指定了同样storageClassName的pvc才能绑定到它上面。
+2、对于没有指定storageClassName的pv,默认classname为&quot;&quot;, 同样只有没有指定classname的pvc才能绑定到它上面。
+3、pvc可以用matchLabels和matchExpressions来指定标签完成更详细的匹配需求。
+4、匹配成功应该还需要一些基本的存储条件吧，比如pvc申请的存储空间肯定不能大于指定的pv.</code></pre>
+
+<h3 id="subPath"><a href="#subPath" class="headerlink" title="subPath"></a>subPath</h3><pre><code class="hljs plain">即可以选择挂载覆盖 pod里面的 子文件夹或文件, 而不影响 pod里面 同级的其他文件夹或文件, 如下,subpath的含义代表configmap中的子文件resolve.conf,而不是pod里面的实际目录文件;
+若subPath为目录, 也是代表configmap或外置存储中的子文件夹(包含本身)
+ 
+   volumeMounts:
+   - name: host-log-dir
+     mountPath: &#x2F;logs
+   - name: dns-overwrite-mount-point
+     mountPath: &#x2F;etc&#x2F;resolv.conf
+     subPath: resolv.conf
+volumes:
+- name: host-log-dir
+   hostPath:
+     path: &#x2F;docker-logs&#x2F;applogs&#x2F;cradle
+- name: dns-overwrite-mount-point
+   configMap:
+     name: bigdata-dns
+#####################################
+spec:
+    containers:
+    - name: mysql
+      image: mysql
+      env:
+      - name: MYSQL_ROOT_PASSWORD
+        value: &quot;rootpasswd&quot;
+      volumeMounts:
+      - mountPath: &#x2F;var&#x2F;lib&#x2F;mysql
+        name: site-data
+        subPath: mysql
+    - name: php
+      image: php:7.0-apache
+      volumeMounts:
+      - mountPath: &#x2F;var&#x2F;www&#x2F;html
+        name: site-data
+        subPath: html
+    volumes:
+    - name: site-data
+      persistentVolumeClaim:
+        claimName: my-lamp-site-data</code></pre>
+
+
+
+<h3 id="TODO-PVC挂载多POD-目录区分"><a href="#TODO-PVC挂载多POD-目录区分" class="headerlink" title="TODO:PVC挂载多POD(目录区分?)"></a>TODO:PVC挂载多POD(目录区分?)</h3><h2 id="深入解析Pod对象"><a href="#深入解析Pod对象" class="headerlink" title="深入解析Pod对象"></a>深入解析Pod对象</h2><blockquote>
+<p>Pod 这种“超亲密关系”容器的设计思想，实际上就是希望，当用户想在一个容器里跑多个功能并不相关的应用时，应该优先考虑它们是不是更应该被描述成一个 Pod 里的多个容器。</p>
+</blockquote>
+<blockquote>
+<p>Pod实际上是在扮演传统基础设施里“虚拟机”的角色；而容器，则是这个虚拟机里运行的用户程序。(方便上云模拟进程组)</p>
+</blockquote>
+<blockquote>
+<p>pod是一个小家庭，它把密不可分的家庭成员(container)聚在一起，Infra container则是家长，掌管家中共通资源，家庭成员通过sidecar方式互帮互助，其乐融融～</p>
+</blockquote>
+<h3 id="POD存在的意义"><a href="#POD存在的意义" class="headerlink" title="POD存在的意义"></a>POD存在的意义</h3><pre><code class="hljs plain">1. POD是一组容器的逻辑概念;
+2. 出现的原因是进程之间 有拓扑关系 即进程组(tree), 如文件交换,本地通信, 频繁的远程调用, 缓存共享等等;
+3. 超亲密关系;
+4. Swarm 失败的原因之一, 不支持pod这种多容器组合运行;
+4. Pod 扮演的是传统部署环境里“虚拟机”的角色。这样的设计，是为了使用户从传统环境（虚拟机环境）向 Kubernetes（容器环境）的迁移，更加平滑, 把容器看作是运行在这个“机器”里的“用户程序”。</code></pre>
+
+<h3 id="POD实现原理"><a href="#POD实现原理" class="headerlink" title="POD实现原理"></a>POD实现原理</h3><pre><code class="hljs plain">1. Pod 里的所有容器，共享的是同一个 Network Namespace，并且可以声明共享同一个 Volume;
+2. Infra容器 &#x3D; 空容器 &#x3D; k8s.gcr.io&#x2F;pause, 其他容器都加入到这个容器的相关namespace中来;
+3. 所以,可以想象所有的容器都在一个大的 容器下面跑, 共享ip, 共享通信, 共享挂载的volume;</code></pre>
+
+
+
+
+
+<h3 id="容器设计模式"><a href="#容器设计模式" class="headerlink" title="容器设计模式"></a>容器设计模式</h3><pre><code class="hljs plain">实际上就是 少用 继承 , 多用组合
+1. 组合模式 &#x3D; sidecar
+2.</code></pre>
+
+<h3 id="Init-Container"><a href="#Init-Container" class="headerlink" title="Init Container"></a>Init Container</h3><pre><code class="hljs plain">在 Pod 中，所有 Init Container 定义的容器，都会比 spec.containers 定义的用户容器先启动。并且，Init Container 容器会按顺序逐一启动，而直到它们都启动并且退出了，用户容器才会启动。</code></pre>
+
+
+
+<h3 id="组合模式Demo"><a href="#组合模式Demo" class="headerlink" title="组合模式Demo"></a>组合模式Demo</h3><pre><code class="hljs yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">javaweb-2</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">initContainers:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">geektime/sample:v2</span>
+    <span class="hljs-attr">name:</span> <span class="hljs-string">war</span>
+    <span class="hljs-attr">command:</span> <span class="hljs-string">["cp",</span> <span class="hljs-string">"/sample.war"</span><span class="hljs-string">,</span> <span class="hljs-string">"/app"</span><span class="hljs-string">]</span>
+    <span class="hljs-attr">volumeMounts:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/app</span>
+      <span class="hljs-attr">name:</span> <span class="hljs-string">app-volume</span>
+  <span class="hljs-attr">containers:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">geektime/tomcat:7.0</span>
+    <span class="hljs-attr">name:</span> <span class="hljs-string">tomcat</span>
+    <span class="hljs-attr">command:</span> <span class="hljs-string">["sh","-c","/root/apache-tomcat-7.0.42-v2/bin/start.sh"]</span>
+    <span class="hljs-attr">volumeMounts:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/root/apache-tomcat-7.0.42-v2/webapps</span>
+      <span class="hljs-attr">name:</span> <span class="hljs-string">app-volume</span>
+    <span class="hljs-attr">ports:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">8080</span>
+      <span class="hljs-attr">hostPort:</span> <span class="hljs-number">8001</span>
+  <span class="hljs-attr">volumes:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">app-volume</span>
+    <span class="hljs-attr">emptyDir:</span> <span class="hljs-string">&#123;&#125;</span></code></pre>
+
+<h3 id="POD生命周期"><a href="#POD生命周期" class="headerlink" title="POD生命周期"></a>POD生命周期</h3><pre><code class="hljs plain">1. postStart(并行)的执行时机 和 Docker 中的entrypoint 是并行的, 并没有严格的区分先后顺序;
+若执行失败, pod的状态也为失败;
+2. preStop(串行), 收到sigkill信号后执行, 会阻塞杀死的过程;
++++++++++++
+3. pod状态存储在pod.status.phase中, 其他的都是对这个状态的细节描述, 主要有
+Pending。这个状态意味着，Pod 的 YAML 文件已经提交给了 Kubernetes，API 对象已经被创建并保存在 Etcd 当中。但是，这个 Pod 里有些容器因为某种原因而不能被顺利创建。比如，调度不成功。
+Running。这个状态下，Pod 已经调度成功，跟一个具体的节点绑定。它包含的容器都已经创建成功，并且至少有一个正在运行中。
+Succeeded。这个状态意味着，Pod 里的所有容器都正常运行完毕，并且已经退出了。这种情况在运行一次性任务时最为常见。
+Failed。这个状态下，Pod 里至少有一个容器以不正常的状态（非 0 的返回码）退出。这个状态的出现，意味着你得想办法 Debug 这个容器的应用，比如查看 Pod 的 Events 和日志。
+Unknown。这是一个异常状态，意味着 Pod 的状态不能持续地被 kubelet 汇报给 kube-apiserver，这很有可能是主从节点（Master 和 Kubelet）间的通信出现了问题。
+ 
+++++++++++++</code></pre>
+
+
+
+<h3 id="投射键值对"><a href="#投射键值对" class="headerlink" title="投射键值对"></a><strong>投射键值对</strong></h3><pre><code class="hljs plain">1. 投射目录有4种: Secret, ConfigMap, Downward API, ServiceAccountToken(属于Secret)
+2. 若secret 和 configmap变更, 那么挂载进入pod的文件也会自动跟着变更, 应用不用自动重启,
+但是若以环境变量的形式注入, 则不会自动更新!!!!
+3. secret 默认用base64编码... 可被逆转, echo -n &#39;admin&#39; | base64
+4. 常用命令: (from文件可以指导我们 怎么样编写多行内容的yaml + 自动base64)
+# 创建
+kubectl create secret generic user --from-file&#x3D;.&#x2F;username.txt
+kubectl create configmap ui-config --from-file&#x3D;example&#x2F;ui.properties
+ 
+5. 内置api, 一定是 Pod 里的容器进程启动之前就能够确定下来的信息;
+# 使用 fieldRef 可以声明使用:
+spec.nodeName - 宿主机名字
+status.hostIP - 宿主机 IP
+metadata.name - Pod 的名字
+metadata.namespace - Pod 的 Namespace
+status.podIP - Pod 的 IP
+spec.serviceAccountName - Pod 的 Service Account 的名字
+metadata.uid - Pod 的 UID
+metadata.labels[&#39;&lt;KEY&gt;&#39;] - 指定 &lt;KEY&gt; 的 Label 值
+metadata.annotations[&#39;&lt;KEY&gt;&#39;] - 指定 &lt;KEY&gt; 的 Annotation 值
+metadata.labels - Pod 的所有 Label
+metadata.annotations - Pod 的所有 Annotation
+ 
+# 使用 resourceFieldRef 可以声明使用:
+容器的 CPU limit
+容器的 CPU request
+容器的 memory limit
+容器的 memory request</code></pre>
+
+
+
+<h3 id="POD状态"><a href="#POD状态" class="headerlink" title="POD状态"></a>POD状态</h3><pre><code class="hljs plain">1.但一定要强调的是，Pod 的恢复过程，永远都是发生在当前节点上，而不会跑到别的节点上去。事实上，一旦一个 Pod 与一个节点（Node）绑定，除非这个绑定发生了变化（pod.spec.node 字段被修改），否则它永远都不会离开这个节点。这也就意味着，如果这个宿主机宕机了，这个 Pod 也不会主动迁移到其他节点上去。
+2.而如果你想让 Pod 出现在其他的可用节点上，就必须使用 Deployment 这样的“控制器”来管理 Pod，哪怕你只需要一个 Pod 副本
+ 
+3.只要 Pod 的 restartPolicy 指定的策略允许重启异常的容器（比如：Always），那么这个 Pod 就会保持 Running 状态，并进行容器重启。否则，Pod 就会进入 Failed 状态 。
+ 
+4.对于包含多个容器的 Pod，只有它里面所有的容器都进入异常状态后，Pod 才会进入 Failed 状态。</code></pre>
+
+
+
+<h3 id="ServiceAccountToken"><a href="#ServiceAccountToken" class="headerlink" title="ServiceAccountToken"></a>ServiceAccountToken</h3><pre><code class="hljs plain"># 经过测试无法通过kubectl直接操作, 估计还必须得写程序折腾
+一旦 Pod 创建完成，容器里的应用就可以直接从这个默认 ServiceAccountToken 的挂载目录里访问到授权信息和文件。这个容器内的路径在 Kubernetes 里是固定的，
+所以，你的应用程序只要直接加载这些授权文件，就可以访问并操作 Kubernetes API 了。而且，如果你使用的是 Kubernetes 官方的 Client 包（k8s.io&#x2F;client-go）的话，它还可以自动加载这个目录下的文件，你不需要做任何配置或者编码操作。</code></pre>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%B7%A5%E4%BD%9C/">工作</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/">程序员</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/k8s/">k8s</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/k8s/">k8s</a>
+                    
+                      <a class="hover-with-bg" href="/tags/docker/">docker</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                <img src="https://gitee.com/matrixcall/bed001/raw/master/hexo/img/wx_gzh.png" srcset="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/img/loading.gif" style="width:450px"/>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/k8s/K8S%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E6%A0%87%E5%BC%B9%E6%80%A7%E4%BC%B8%E7%BC%A9/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">K8S自定义指标弹性伸缩</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <script defer src="https://utteranc.es/client.js"
+          repo="mxcall/mx-comment"
+          issue-term="pathname"
+  
+          label="utterances"
+    
+          theme="github-light"
+          crossorigin="anonymous"
+  >
+  </script>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/js/main.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 3,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "K8S学习笔记(极客时间01-15)&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://gitee.com/matrixcall/bed001/raw/master/hexo/img/web-icon.png">
+  <link rel="icon" type="image/png" href="https://gitee.com/matrixcall/bed001/raw/master/hexo/img/favicon-light.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="Blog of mxcall">
+  <meta name="author" content="陆压的HUB">
+  <meta name="keywords" content="java,k8s,docker,devops">
+  <title>FastJson迁移至Jackson - 陆压的HUB</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/xcode.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>陆压的HUB</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="iconfont icon-home-fill"></i>
+              首页</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">
+              <i class="iconfont icon-archive-fill"></i>
+              归档</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">
+              <i class="iconfont icon-category-fill"></i>
+              分类</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">
+              <i class="iconfont icon-tags-fill"></i>
+              标签</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">
+              <i class="iconfont icon-user-fill"></i>
+              关于</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/posts/comments/">
+              <i class="iconfont icon-twitch-fill"></i>
+              留言</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/links/">
+              <i class="iconfont icon-link-fill"></i>
+              友链</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://gitee.com/matrixcall/bed001/raw/master/hexo/img/banner-light.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.1)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            <div class="mt-3 post-meta">
+              
+                  <div class="post-meta mr-3">
+                  <i class="iconfont icon-category"></i>
+                  
+                      <a class="hover-with-bg" style="color: #fff;" href="/categories/%E5%B7%A5%E4%BD%9C/">工作</a>
+                  
+                      <a class="hover-with-bg" style="color: #fff;" href="/categories/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/">程序员</a>
+                  
+                      <a class="hover-with-bg" style="color: #fff;" href="/categories/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/javaSE/">javaSE</a>
+                  
+                  <i class="iconfont icon-tags"></i>
+                  
+                      <a class="hover-with-bg" style="color: #fff;" href="/tags/java/">java</a>
+                  
+                      <a class="hover-with-bg" style="color: #fff;" href="/tags/json/">json</a>
+                  
+                  </div>
+              
+            </div>
+
+            
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2020-05-29 09:00">
+                    2020年5月29日 上午
+                  </time>
+                </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    1.3k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    21
+                     分钟
+                  </span>
+                
+
+                
+                
+              </div>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h1 id="FastJson迁移至Jackson"><a href="#FastJson迁移至Jackson" class="headerlink" title="FastJson迁移至Jackson"></a>FastJson迁移至Jackson</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>Fastjson在短期内连续爆出高危漏洞, 导致每次都得改代码上线, 已经粉转黑, 决定迁移到SpringBoot自带的Jackson;</p>
+<p>相关粉转黑文章参考:</p>
+<p><a href="https://zhuanlan.zhihu.com/p/138215906" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/138215906</a></p>
+<h2 id="替换方法"><a href="#替换方法" class="headerlink" title="替换方法"></a>替换方法</h2><h3 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h3><p>Jackson版本等根据springboot版本来选, 因为我用的springboot版本较低, 所以用的 jackson版本是2.8</p>
+<pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">properties</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">jackson.version</span>&gt;</span>2.8.11<span class="hljs-tag">&lt;/<span class="hljs-name">jackson.version</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">properties</span>&gt;</span>
+...
+<span class="hljs-tag">&lt;<span class="hljs-name">dependencies</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.fasterxml.jackson.core<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>jackson-core<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>$&#123;jackson-version&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.fasterxml.jackson.core<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>jackson-databind<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>$&#123;jackson-version&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.fasterxml.jackson.core<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>jackson-annotations<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>$&#123;jackson-version&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+         <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.fasterxml.jackson.datatype<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+         <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>jackson-datatype-json-org<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+         <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.9.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.jayway.jsonpath<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>json-path<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.4.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependencies</span>&gt;</span></code></pre>
+
+
+
+<h3 id="工具类"><a href="#工具类" class="headerlink" title="工具类"></a>工具类</h3><p>因为已经习惯Fastjson的语法, 所以极其不习惯在序列号之前还要new Mapper, 所以写了此工具类;</p>
+<p>此工具类能基本保证Fastjson的默认行为与Jackson默认行为(序列号和反序列化)保持一致 (如忽略属性);</p>
+<p>此工具类相关方法名参考 Fastjson方法名, 避免多记一份方法名;</p>
+<pre><code class="hljs java"><span class="hljs-keyword">package</span> xxxx;
+
+<span class="hljs-keyword">import</span> com.fasterxml.jackson.core.JsonParser;
+<span class="hljs-keyword">import</span> com.fasterxml.jackson.core.JsonProcessingException;
+<span class="hljs-keyword">import</span> com.fasterxml.jackson.core.type.TypeReference;
+<span class="hljs-keyword">import</span> com.fasterxml.jackson.databind.DeserializationFeature;
+<span class="hljs-keyword">import</span> com.fasterxml.jackson.databind.MapperFeature;
+<span class="hljs-keyword">import</span> com.fasterxml.jackson.databind.ObjectMapper;
+<span class="hljs-keyword">import</span> com.fasterxml.jackson.databind.SerializationFeature;
+<span class="hljs-keyword">import</span> com.fasterxml.jackson.datatype.jsonorg.JsonOrgModule;
+<span class="hljs-keyword">import</span> com.jayway.jsonpath.Configuration;
+<span class="hljs-keyword">import</span> com.jayway.jsonpath.DocumentContext;
+<span class="hljs-keyword">import</span> com.jayway.jsonpath.JsonPath;
+<span class="hljs-keyword">import</span> com.jayway.jsonpath.Option;
+<span class="hljs-keyword">import</span> com.jayway.jsonpath.spi.json.JacksonJsonProvider;
+<span class="hljs-keyword">import</span> com.jayway.jsonpath.spi.json.JsonProvider;
+<span class="hljs-keyword">import</span> com.jayway.jsonpath.spi.mapper.JacksonMappingProvider;
+<span class="hljs-keyword">import</span> com.jayway.jsonpath.spi.mapper.MappingProvider;
+<span class="hljs-keyword">import</span> org.json.JSONArray;
+<span class="hljs-keyword">import</span> org.json.JSONObject;
+
+<span class="hljs-keyword">import</span> java.io.IOException;
+<span class="hljs-keyword">import</span> java.util.EnumSet;
+<span class="hljs-keyword">import</span> java.util.List;
+<span class="hljs-keyword">import</span> java.util.Set;
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Jackson 高仿 fastjson 工具类</span>
+<span class="hljs-comment"> *</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@description</span>: 参考网站</span>
+<span class="hljs-comment"> * 1. 替换方法细节: https://blog.csdn.net/hujkay/article/details/97040048</span>
+<span class="hljs-comment"> * 2. JSONObject替换方案1(低于2.11.0): https://github.com/FasterXML/jackson-datatype-json-org/tree/2.9</span>
+<span class="hljs-comment"> * 3. JSONObject替换方案2(高于2.11.0): https://github.com/FasterXML/jackson-datatypes-misc</span>
+<span class="hljs-comment"> * 4. JSONPath 工具类: https://github.com/json-path/JsonPath</span>
+<span class="hljs-comment"> *</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@author</span>: weiqi</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@create</span>: 2020/05/28</span>
+<span class="hljs-comment"> **/</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JacksonUtil</span> </span>&#123;
+
+
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 单例内部类</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SingletonHolder</span> </span>&#123;
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> ObjectMapper mapper = <span class="hljs-keyword">new</span> ObjectMapper();
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Configuration jsonPathConf = <span class="hljs-keyword">null</span>;
+        <span class="hljs-keyword">static</span> &#123;
+            <span class="hljs-comment">//Jackson 支持org.json.JSONObject</span>
+            mapper.registerModule(<span class="hljs-keyword">new</span> JsonOrgModule());
+
+            <span class="hljs-comment">//Jackson 反序列化配置</span>
+            <span class="hljs-comment">// 属性在json有, entity有, 但标记为ignore注解, 不抛出异常</span>
+            mapper.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, <span class="hljs-keyword">false</span>);
+            <span class="hljs-comment">// 属性在json有, entity没有,  不抛出异常</span>
+            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, <span class="hljs-keyword">false</span>);
+            <span class="hljs-comment">// 支持json中的key无双引号</span>
+            mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, <span class="hljs-keyword">true</span>);
+            <span class="hljs-comment">// 支持带单引号的key</span>
+            mapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, <span class="hljs-keyword">true</span>);
+            <span class="hljs-comment">// 支持0开头的整数, 如001</span>
+            mapper.configure(JsonParser.Feature.ALLOW_NUMERIC_LEADING_ZEROS, <span class="hljs-keyword">true</span>);
+            <span class="hljs-comment">// 支持回车符号</span>
+            mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, <span class="hljs-keyword">true</span>);
+            <span class="hljs-comment">// int类型为null, 则抛出异常</span>
+            mapper.configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, <span class="hljs-keyword">true</span>);
+            <span class="hljs-comment">// 枚举找不到值, 不抛出异常</span>
+            mapper.configure(DeserializationFeature.FAIL_ON_NUMBERS_FOR_ENUMS, <span class="hljs-keyword">false</span>);
+
+
+            <span class="hljs-comment">//Jackson 序列化配置</span>
+            <span class="hljs-comment">// 空值输出 字段名: null</span>
+            mapper.configure(SerializationFeature.WRITE_NULL_MAP_VALUES, <span class="hljs-keyword">true</span>);
+            <span class="hljs-comment">// transient注解不输出字段</span>
+            mapper.configure(MapperFeature.PROPAGATE_TRANSIENT_MARKER, <span class="hljs-keyword">true</span>);
+
+            <span class="hljs-comment">//JsonPath</span>
+            Configuration.setDefaults(<span class="hljs-keyword">new</span> Configuration.Defaults() &#123;
+                <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> JsonProvider jsonProvider = <span class="hljs-keyword">new</span> JacksonJsonProvider(mapper);
+                <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> MappingProvider mappingProvider = <span class="hljs-keyword">new</span> JacksonMappingProvider(mapper);
+
+                <span class="hljs-meta">@Override</span>
+                <span class="hljs-function"><span class="hljs-keyword">public</span> JsonProvider <span class="hljs-title">jsonProvider</span><span class="hljs-params">()</span> </span>&#123;
+                    <span class="hljs-keyword">return</span> jsonProvider;
+                &#125;
+                <span class="hljs-meta">@Override</span>
+                <span class="hljs-function"><span class="hljs-keyword">public</span> MappingProvider <span class="hljs-title">mappingProvider</span><span class="hljs-params">()</span> </span>&#123;
+                    <span class="hljs-keyword">return</span> mappingProvider;
+                &#125;
+                <span class="hljs-meta">@Override</span>
+                <span class="hljs-function"><span class="hljs-keyword">public</span> Set&lt;Option&gt; <span class="hljs-title">options</span><span class="hljs-params">()</span> </span>&#123;
+                    <span class="hljs-keyword">return</span> EnumSet.noneOf(Option<span class="hljs-class">.<span class="hljs-keyword">class</span>)</span>;
+                &#125;
+            &#125;);
+
+            jsonPathConf = Configuration.defaultConfiguration()
+            .addOptions(Option.DEFAULT_PATH_LEAF_TO_NULL)
+            .addOptions(Option.SUPPRESS_EXCEPTIONS)
+            ;
+
+            <span class="hljs-comment">//others</span>
+        &#125;
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 单例get</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> ObjectMapper <span class="hljs-title">getInstance</span><span class="hljs-params">()</span></span>&#123;
+        <span class="hljs-keyword">return</span> SingletonHolder.mapper;
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * clone 一个可以改配置</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> ObjectMapper <span class="hljs-title">copyInstance</span><span class="hljs-params">()</span></span>&#123;
+        ObjectMapper copy = SingletonHolder.mapper.copy();
+        <span class="hljs-keyword">return</span> copy;
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 指定Obj 对象-&gt; 字符串</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> obj</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> &lt;T&gt;</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> JsonProcessingException</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;T&gt; <span class="hljs-function">String <span class="hljs-title">toJSONString</span><span class="hljs-params">(T obj)</span> <span class="hljs-keyword">throws</span> JsonProcessingException </span>&#123;
+        <span class="hljs-keyword">return</span> getInstance().writeValueAsString(obj);
+    &#125;
+
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 字符串 -&gt; 指定Obj 对象</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> json</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> valueType</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> &lt;T&gt;</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;T&gt; <span class="hljs-function">T <span class="hljs-title">parseObject</span><span class="hljs-params">(String json, Class&lt;T&gt; valueType)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;
+        <span class="hljs-keyword">return</span> getInstance().readValue(json, valueType);
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 字符串 -&gt; 通用类JSONObject</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> json</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> JSONObject <span class="hljs-title">parseObject</span><span class="hljs-params">(String json)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;
+        <span class="hljs-keyword">return</span> getInstance().readValue(json, JSONObject<span class="hljs-class">.<span class="hljs-keyword">class</span>)</span>;
+
+    &#125;
+
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 字符串 -&gt; 指定数组类</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> json</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> valueType</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> &lt;T&gt;</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;T&gt; <span class="hljs-function">List&lt;T&gt; <span class="hljs-title">parseArray</span><span class="hljs-params">(String json, Class&lt;T&gt; valueType)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;
+        <span class="hljs-keyword">return</span> getInstance().readValue(json, <span class="hljs-keyword">new</span> TypeReference&lt;List&lt;T&gt;&gt;()&#123;&#125;);
+    &#125;
+
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 字符串 -&gt; 通用数组类 JSONArray</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> json</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> &lt;T&gt;</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;T&gt; <span class="hljs-function">JSONArray <span class="hljs-title">parseArray</span><span class="hljs-params">(String json)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;
+        <span class="hljs-keyword">return</span> getInstance().readValue(json, JSONArray<span class="hljs-class">.<span class="hljs-keyword">class</span>)</span>;
+    &#125;
+
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 高级: 获取JSONPath 帮助类</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> jsonStr</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> DocumentContext <span class="hljs-title">getDocumentContext</span><span class="hljs-params">(String jsonStr)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;
+        DocumentContext dcHelp = JsonPath.using(SingletonHolder.jsonPathConf).parse(jsonStr);
+        <span class="hljs-keyword">return</span> dcHelp;
+    &#125;
+
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 高级: 解析 JSONPath</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> dcHelp</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> path</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Object <span class="hljs-title">evalPath</span><span class="hljs-params">(DocumentContext dcHelp, String path)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;
+        <span class="hljs-comment">// 参考链接 https://github.com/json-path/JsonPath</span>
+        Object result = dcHelp.read(path);
+        <span class="hljs-keyword">return</span> result;
+    &#125;
+
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 高级: 默认配置解析 JSONPath</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> jsonStr</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@param</span> path</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> IOException</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Object <span class="hljs-title">evalPath</span><span class="hljs-params">(String jsonStr, String path)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;
+        DocumentContext dcHelp = getDocumentContext(jsonStr);
+        Object o = evalPath(dcHelp, path);
+        <span class="hljs-keyword">return</span>  o;
+    &#125;
+
+&#125;</code></pre>
+
+
+
+
+
+
+
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ol>
+<li>替换方法细节: <a href="https://blog.csdn.net/hujkay/article/details/97040048" target="_blank" rel="noopener">https://blog.csdn.net/hujkay/article/details/97040048</a></li>
+<li>JSONObject替换方案1(低于2.11.0): <a href="https://github.com/FasterXML/jackson-datatype-json-org/tree/2.9" target="_blank" rel="noopener">https://github.com/FasterXML/jackson-datatype-json-org/tree/2.9</a></li>
+<li>JSONObject替换方案2(高于2.11.0): <a href="https://github.com/FasterXML/jackson-datatypes-misc" target="_blank" rel="noopener">https://github.com/FasterXML/jackson-datatypes-misc</a></li>
+<li>JSONPath 工具类: <a href="https://github.com/json-path/JsonPath" target="_blank" rel="noopener">https://github.com/json-path/JsonPath</a></li>
+</ol>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%B7%A5%E4%BD%9C/">工作</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/">程序员</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/javaSE/">javaSE</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/java/">java</a>
+                    
+                      <a class="hover-with-bg" href="/tags/json/">json</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                <img src="https://gitee.com/matrixcall/bed001/raw/master/hexo/img/wx_gzh.png" srcset="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/img/loading.gif" style="width:450px"/>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/javaSE/HashMap%E5%A4%BA%E5%91%BD%E4%BA%8C%E5%8D%81%E4%B8%80%E9%97%AE/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">面试：HashMap 夺命二十一问！</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/posts/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/ide/Idea%E8%BF%9B%E9%98%B6%E5%BF%AB%E6%8D%B7%E9%94%AE/">
+                        <span class="hidden-mobile">Idea进阶快捷键</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <script defer src="https://utteranc.es/client.js"
+          repo="mxcall/mx-comment"
+          issue-term="pathname"
+  
+          label="utterances"
+    
+          theme="github-light"
+          crossorigin="anonymous"
+  >
+  </script>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/js/main.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 3,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "FastJson迁移至Jackson&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

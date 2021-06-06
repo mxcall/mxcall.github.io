@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://gitee.com/matrixcall/bed001/raw/master/hexo/img/web-icon.png">
+  <link rel="icon" type="image/png" href="https://gitee.com/matrixcall/bed001/raw/master/hexo/img/favicon-light.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="Blog of mxcall">
+  <meta name="author" content="陆压的HUB">
+  <meta name="keywords" content="java,k8s,docker,devops">
+  <title>K8S自定义指标弹性伸缩 - 陆压的HUB</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/xcode.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>陆压的HUB</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="iconfont icon-home-fill"></i>
+              首页</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">
+              <i class="iconfont icon-archive-fill"></i>
+              归档</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">
+              <i class="iconfont icon-category-fill"></i>
+              分类</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">
+              <i class="iconfont icon-tags-fill"></i>
+              标签</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">
+              <i class="iconfont icon-user-fill"></i>
+              关于</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/posts/comments/">
+              <i class="iconfont icon-twitch-fill"></i>
+              留言</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/links/">
+              <i class="iconfont icon-link-fill"></i>
+              友链</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://gitee.com/matrixcall/bed001/raw/master/hexo/img/banner-light.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.1)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            <div class="mt-3 post-meta">
+              
+                  <div class="post-meta mr-3">
+                  <i class="iconfont icon-category"></i>
+                  
+                      <a class="hover-with-bg" style="color: #fff;" href="/categories/%E5%B7%A5%E4%BD%9C/">工作</a>
+                  
+                      <a class="hover-with-bg" style="color: #fff;" href="/categories/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/">程序员</a>
+                  
+                      <a class="hover-with-bg" style="color: #fff;" href="/categories/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/k8s/">k8s</a>
+                  
+                  <i class="iconfont icon-tags"></i>
+                  
+                      <a class="hover-with-bg" style="color: #fff;" href="/tags/k8s/">k8s</a>
+                  
+                      <a class="hover-with-bg" style="color: #fff;" href="/tags/docker/">docker</a>
+                  
+                  </div>
+              
+            </div>
+
+            
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2020-05-25 00:32">
+                    2020年5月25日 凌晨
+                  </time>
+                </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    2.6k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    35
+                     分钟
+                  </span>
+                
+
+                
+                
+              </div>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h1 id="K8S自定义指标弹性伸缩"><a href="#K8S自定义指标弹性伸缩" class="headerlink" title="K8S自定义指标弹性伸缩"></a>K8S自定义指标弹性伸缩</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>  一般业务都会存在忙/闲时间段, 如斗鱼相关业务, 大部分对外接口服务压力集中在晚上; 又比如某大型赛事开始前, 相关服务压力会剧增; 又比如某大主播直播间出现精彩时刻, 相关弹幕服务流量激增; 可以总结, 某些场景下, 相关服务压力是可以提前预见的, 可提前配置实例扩容, 而更复杂场景下, 无法提前预见, 需要基础设置根据相关监控指标, 动态地扩容相关核心服务, 避免出现服务无法响应的悲剧.</p>
+<p>  K8S针对无状态服务(Deployment)提供了很多DevOps标准解决方案, 如滚动升级, 健康检查, 亲和性策略,弹性伸缩等等, 其中<code>弹性伸缩</code>是VM时代的标配功能, K8S也将其作为一个重要功能在版本更新中不断将其完善, 从一开始只支持CPU指标的弹性伸缩, 到近期版本(1.7)以后, 支持各类数据源指标的弹性伸缩.</p>
+<p>  斗鱼容器平台早期只支持手动扩缩容, 随着K8S版本的迭代, 后续支持CPU 和内存指标的扩缩容, 但<code>相关开发者反应, 基于CPU和内存的指标无法直接映射到服务流量指标上</code>, 导致扩容很慢, 影响了核心服务质量; 一开始解决办法准备根据监控系统提供的指标做到各类自定义指标的扩缩容(如QPS), 但根据预研相关资料, 发现最新的K8S-HPA已经能根据Prometheus提供的指标弹性扩缩容, 因此决定不重复”造轮”, 直接用K8S原生提供的弹性伸缩功能(HPA). </p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p><img src="https://cdn.jsdelivr.net/gh/matrixcall/bed001@master/img/2019/01/20191216144934.jpg" srcset="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/img/loading.gif" alt=""> </p>
+<p>  如图1所示, 在K8S新架构中(1.7后), 将相关指标通过接口的形式规范化, 即通过Metrics Aggegator 组件统一对外提供所有指标查询服务, 原生Metrics Server实现了CPU, 内存等相关指标查询接口, Prometheus-adapter提供了以普罗米修斯为数据源的其它指标查询接口; Metrics Aggegator 提供了类似Nginx转发的功能, 如果查询路径是 /apis/metrics.k8s.io, 则查询的是Metrics Server; 如果查询路径是 /apis/custom.metrics.k8s.io , 则查询的是自定义指标接口.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/matrixcall/bed001@master/img/2019/01/20191216145018.png" srcset="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/img/loading.gif" alt=""></p>
+<p>图2 展示的是图一部分自定义指标的细节说明, 核心组件是Kube-prometheus-adapter, 简单的说来, 它做了两件事: </p>
+<ul>
+<li>将K8S的查询语句翻译为Prometheus的查询语句;</li>
+<li>将Prometheus查询出来的结果过滤+翻译成K8S中的自定义指标</li>
+</ul>
+<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><h4 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h4><p>下载prometheus适配器的yaml配置</p>
+<pre><code class="hljs plain">https:&#x2F;&#x2F;github.com&#x2F;stefanprodan&#x2F;k8s-prom-hpa</code></pre>
+
+<p>查询相关指标是否在普罗米修斯中存在, container_network_receive_bytes_total</p>
+<pre><code class="hljs plain">sum by (pod_name) (rate(container_network_receive_bytes_total&#123;pod_name&#x3D;&quot;bow-hotvideo-recom-1366-b5558f5fd-j49xg&quot;&#125;[864s])) * 8 &#x2F;1024&#x2F;1000</code></pre>
+
+
+
+<h4 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h4><pre><code class="hljs plain"># 生成cm-adapter-serving-certs.yaml文件（证书文件）
+make certs
+
+cd custom-metrics-api
+
+# 默认相关pod及configmap等文件都会创建在montioring命名空间，这里修改为kube-system
+sed -i &#39;s&#x2F;namespace: monitoring&#x2F;namespace: kube-system&#x2F;g&#39; *.yaml
+
+# 修改k8s-prometheus-adapter-amd64的镜像地址，因为默认的quay.io在国内访问不到
+sed -i &#39;s@quay.io&#x2F;coreos&#x2F;k8s-prometheus-adapter-amd64:v0.4.1@quay.azk8s.cn&#x2F;coreos&#x2F;k8s-prometheus-adapter-amd64:v0.4.1@g&#39; custom-metrics-apiserver-deployment.yaml
+
+# 修改需要连接的prometheus地址，改为集群中部署的prometheus的svc地址
+sed -i &#39;s@http:&#x2F;&#x2F;prometheus.monitoring.svc:9090@http:&#x2F;&#x2F;prometheus-prometheus-server.default.svc:9090@g&#39; custom-metrics-apiserver-deployment.yaml</code></pre>
+
+<h4 id="应用配置"><a href="#应用配置" class="headerlink" title="应用配置"></a>应用配置</h4><pre><code class="hljs plain"># 安装
+
+kubectl apply -f .&#x2F;</code></pre>
+
+
+
+<h3 id="关键配置说明"><a href="#关键配置说明" class="headerlink" title="关键配置说明"></a>关键配置说明</h3><p>Prometheus与K8S转换的关键配置在此文件中: </p>
+<pre><code class="hljs plain">apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: adapter-config
+  namespace: kube-system
+data:
+  config.yaml: |
+    rules:
+    - seriesQuery: &#39;&#123;__name__&#x3D;~&quot;^http_requests_total$&quot;,kubernetes_namespace!&#x3D;&quot;&quot;,kubernetes_pod_name!&#x3D;&quot;&quot;&#125;&#39;
+      seriesFilters: []
+      resources:
+        overrides:
+          kubernetes_namespace:
+            resource: namespace
+          kubernetes_pod_name:
+            resource: pod
+      name:
+        matches: ^(.*)_total$
+        as: &quot;&quot;
+      metricsQuery: sum by (&lt;&lt;.GroupBy&gt;&gt;) (rate(&lt;&lt;.Series&gt;&gt;&#123;&lt;&lt;.LabelMatchers&gt;&gt;&#125;[1m]))
+    - seriesQuery: &#39;&#123;__name__&#x3D;~&quot;^container_network_.*_total$&quot;,container_name&#x3D;&quot;POD&quot;,namespace!&#x3D;&quot;&quot;,pod_name!&#x3D;&quot;&quot;&#125;&#39;
+      seriesFilters: []
+      resources:
+        overrides:
+          namespace:
+            resource: namespace
+          pod_name:
+            resource: pod
+      name:
+        matches: ^(.*)_bytes_total$
+        as: &quot;$&#123;1&#125;_kbps&quot;
+      metricsQuery: sum by (&lt;&lt;.GroupBy&gt;&gt;) (rate(&lt;&lt;.Series&gt;&gt;&#123;&lt;&lt;.LabelMatchers&gt;&gt;,container_name&#x3D;&quot;POD&quot;&#125;[1m]))*8&#x2F;1024&#x2F;1000
+    
+...</code></pre>
+
+<p>其中, rules语法一开始看不懂, 可以根据官方文档说明查看, 这里简单解释一下:</p>
+<p>这个配置文件主要干了以下几个活：</p>
+<ol>
+<li>通过<code>seriesQuery</code>从prometheus中获取相应的自定义指标，这会获取到多个指标</li>
+<li>通过<code>seriesFilters</code>过滤掉不需要的指标</li>
+<li>通过resources将prometheus中获取到的指标的namespace标签映射为k8s的namepace标签，将prometheus中获取到指标的<code>pod_name</code>标签映射为k8s的pod标签</li>
+<li>使用<code>metricsQuery</code>查询表达式获取k8s真正需要的指标</li>
+<li>通过name中的matches正则表达式来匹配查询到的指标，并将其重命名为as中的值。在我们的示例里，即将<code>container_network_receive_bytes_total</code>给重命名为<code>container_network_receive_kbps</code>。需要说明的是，如果as为空，即代表删除name中的非括号部分的字段。</li>
+</ol>
+<p>我们说过，prometheus-adapter的作用就是将prometheus中查询的指标，翻译成k8s能识别的监控指标，而这部分工作即由其配置文件来实现。</p>
+<p>在<code>metricsQuery</code>的语句中，还使用到了几个变量：</p>
+<ul>
+<li>&lt;&lt;.GroupBy&gt;&gt;： 基于查询的指标分组，我们的示例里，即<code>pod_name</code></li>
+<li>&lt;&lt;.Series&gt;&gt;：查询的指标名，在我们的示例里即<code>container_network_receive_bytes_total</code></li>
+<li>&lt;&lt;.LabelMatchers&gt;&gt;： 匹配到的标签，在我们的实例里，即<code>namespace!=&quot;&quot;,pod_name!=&quot;&quot;</code></li>
+</ul>
+<p>详细指标配置说明，可参考<a href="https://github.com/DirectXMan12/k8s-prometheus-adapter" target="_blank" rel="noopener">k8s-prometheus-adapter</a>这个项目。</p>
+<p>相关配置项文档： <a href="https://github.com/DirectXMan12/k8s-prometheus-adapter/blob/master/docs/config-walkthrough.md" target="_blank" rel="noopener">https://github.com/DirectXMan12/k8s-prometheus-adapter/blob/master/docs/config-walkthrough.md</a></p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>验证 指标是否存在</p>
+<pre><code class="hljs plain"># 验证custom metric server
+kubectl get --raw &quot;&#x2F;apis&#x2F;custom.metrics.k8s.io&#x2F;v1beta1&quot; | jq .
+# 验证metric server
+kubectl get --raw &quot;&#x2F;apis&#x2F;metrics.k8s.io&#x2F;v1beta1&#x2F;nodes&quot; | jq .</code></pre>
+
+<p>验证 指标的值是否存在</p>
+<pre><code class="hljs plain">kubectl get --raw &quot;&#x2F;apis&#x2F;custom.metrics.k8s.io&#x2F;v1beta1&#x2F;namespaces&#x2F;bigdata&#x2F;pods&#x2F;ocean-biz-service-business-731-67957c7dbf-crvmm&#x2F;container_network_receive_kbps&quot; | jq .
+
+...
+    &#123;
+      &quot;describedObject&quot;: &#123;
+        &quot;kind&quot;: &quot;Pod&quot;,
+        &quot;namespace&quot;: &quot;default&quot;,
+        &quot;name&quot;: &quot;ocean-biz-service-business-731-67957c7dbf-crvmm&quot;,
+        &quot;apiVersion&quot;: &quot;&#x2F;v1&quot;
+      &#125;,
+      &quot;metricName&quot;: &quot;container_network_receive_kbps&quot;,
+      &quot;timestamp&quot;: &quot;2019-10-21T08:16:32Z&quot;,
+      &quot;value&quot;: &quot;49152&quot;
+    &#125;
+...</code></pre>
+
+<h3 id="服务使用"><a href="#服务使用" class="headerlink" title="服务使用"></a>服务使用</h3><p>创建弹性伸缩的Yaml即可, 容器平台中有对应的图形化操作界面, 此处直接贴配置</p>
+<pre><code class="hljs plain">apiVersion: autoscaling&#x2F;v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: auto-ocean-biz-service-business-731
+  namespace: bigdata
+  labels:
+    appDeploymentId: &quot;731&quot;
+    appId: &quot;679&quot;
+    autoCreate: &quot;true&quot;
+    name: auto-ocean-biz-service-business-731
+spec:
+  scaleTargetRef:
+    apiVersion: extensions&#x2F;v1beta1
+    kind: Deployment
+    name: ocean-biz-service-business-731
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+  - type: Pods
+    pods:
+      metricName: container_network_receive_kbps
+      targetAverageValue: 80m</code></pre>
+
+<p>应用上述配置后, 服务就可以根据<code>流量</code>来弹性扩缩容了, 我们可以通过<code>ab</code>测试来给服务提高流量负载, 观察其扩容状况</p>
+<pre><code class="hljs plain">yum install httpd-tools –y
+ab -n 1000 -c 5 &#39;实例接口&#39;</code></pre>
+
+<p>可以describe相关hpa, 来观察伸缩的具体情况: </p>
+<pre><code class="hljs plain">&#123;
+  ....
+  &quot;minReplicas&quot;:1,
+  &quot;maxReplicas&quot;:2,
+  &quot;metrics&quot;:[
+   &#123;
+    &quot;type&quot;:&quot;Resource&quot;,
+    &quot;resource&quot;:&#123;
+     &quot;name&quot;:&quot;cpu&quot;,
+     &quot;targetAverageUtilization&quot;:10
+    &#125;
+   &#125;
+  ]
+ &#125;,
+ &quot;status&quot;:&#123;
+  &quot;currentReplicas&quot;:1,
+  &quot;desiredReplicas&quot;:0,
+  &quot;conditions&quot;:[
+   &#123;
+    &quot;type&quot;:&quot;AbleToScale&quot;,
+    &quot;status&quot;:&quot;True&quot;,
+    &quot;lastTransitionTime&quot;:&quot;2019-10-21T13:36:17Z&quot;,
+    &quot;reason&quot;:&quot;SucceededGetScale&quot;,
+    &quot;message&quot;:&quot;the HPA controller was able to get the target&#39;s current scale&quot;
+   &#125;,
+   &#123;
+    &quot;type&quot;:&quot;ScalingActive&quot;,
+    &quot;status&quot;:&quot;False&quot;,
+    &quot;lastTransitionTime&quot;:&quot;2019-10-21T13:36:17Z&quot;,
+    &quot;reason&quot;:&quot;FailedGetResourceMetric&quot;,
+    &quot;message&quot;:&quot;the HPA was unable to compute the replica count: missing request for cpu on container cradle in pod bigdata&#x2F;cradle-943-5d44bd4499-lxrm8&quot;
+   &#125;
+  ]
+ &#125;
+&#125;</code></pre>
+
+
+
+
+
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><h3 id="加速扩缩速度"><a href="#加速扩缩速度" class="headerlink" title="加速扩缩速度"></a>加速扩缩速度</h3><p>在kube-apiserver的启动指令中添加如下参数：</p>
+<pre><code class="hljs plain">kube-apiserver
+  ...
+  --requestheader-client-ca-file&#x3D;&#x2F;etc&#x2F;kubernetes&#x2F;ssl&#x2F;ca.pem \
+  --requestheader-allowed-names&#x3D;aggregator \
+  --requestheader-extra-headers-prefix&#x3D;X-Remote-Extra- \
+  --requestheader-group-headers&#x3D;X-Remote-Group \
+  --requestheader-username-headers&#x3D;X-Remote-User \
+  --proxy-client-cert-file&#x3D;&#x2F;etc&#x2F;kubernetes&#x2F;ssl&#x2F;metrics-server.pem \
+  --proxy-client-key-file&#x3D;&#x2F;etc&#x2F;kubernetes&#x2F;ssl&#x2F;metrics-server-key.pem \</code></pre>
+
+<p>在kube-controller-manager的启动指令中添加如下参数：</p>
+<pre><code class="hljs plain">kube-controller-manager
+  ...
+  --horizontal-pod-autoscaler-use-rest-clients&#x3D;true \
+  --horizontal-pod-autoscaler-downscale-delay&#x3D;5m0s \
+  --horizontal-pod-autoscaler-upscale-delay&#x3D;1m0s \
+  --horizontal-pod-autoscaler-sync-period&#x3D;20s \
+  ...</code></pre>
+
+<p>配置项说明：</p>
+<ul>
+<li><p>horizontal-pod-autoscaler-use-rest-clients： 开启基于rest-clients的自动伸缩</p>
+</li>
+<li><p>horizontal-pod-autoscaler-sync-period：自动伸缩的检测周期为20s，默认为30s</p>
+</li>
+<li><p>horizontal-pod-autoscaler-upscale-delay：当检测到满足扩容条件时，延迟多久开始缩容，即该满足的条件持续多久开始扩容，默认为3分钟</p>
+</li>
+<li><p>horizontal-pod-autoscaler-downscale-delay：当检测到满足缩容条件时，延迟多久开始缩容，即该满足条件持续多久开始缩容，默认为5分钟</p>
+</li>
+</ul>
+<h3 id="指标选择"><a href="#指标选择" class="headerlink" title="指标选择"></a>指标选择</h3><p>因为QPS指标需要应用暴露相关接口提供, 有一定侵入性, 因此采用了<code>container_network_receive_kbps</code>, 这个容器指标, 代表容器接入流量值, 单位为Kbps, 后期有QPS需求可以添加QPS相关指标!</p>
+<p>此指标正好对应<code>容器平台</code> –&gt; <code>实例详情</code> –&gt; <code>网络(图标)</code> –&gt; <code>上行带宽</code> 的值</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ul>
+<li><p>减少扩容间隔: </p>
+<p><a href="https://github.com/gtirloni/kubernetes-website/blob/master/docs/tasks/run-application/horizontal-pod-autoscale.md" target="_blank" rel="noopener">https://github.com/gtirloni/kubernetes-website/blob/master/docs/tasks/run-application/horizontal-pod-autoscale.md</a></p>
+<p><a href="https://rancher.com/blog/2018/2018-08-06-k8s-hpa-resource-custom-metrics/" target="_blank" rel="noopener">https://rancher.com/blog/2018/2018-08-06-k8s-hpa-resource-custom-metrics/</a></p>
+</li>
+</ul>
+<ul>
+<li><p>搭建自定义指标框架</p>
+<p><a href="https://www.yangcs.net/posts/custom-metrics-hpa/" target="_blank" rel="noopener">https://www.yangcs.net/posts/custom-metrics-hpa/</a></p>
+<p><a href="https://github.com/stefanprodan/k8s-prom-hpa" target="_blank" rel="noopener">https://github.com/stefanprodan/k8s-prom-hpa</a></p>
+<p><a href="https://github.com/gtirloni/kubernetes-website/blob/master/docs/tasks/run-application/horizontal-pod-autoscale.md" target="_blank" rel="noopener">https://github.com/gtirloni/kubernetes-website/blob/master/docs/tasks/run-application/horizontal-pod-autoscale.md</a></p>
+</li>
+<li><p>原理</p>
+<p><a href="https://zhuanlan.zhihu.com/p/34555654" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/34555654</a></p>
+<p><a href="https://xuchao918.github.io/2019/01/10/如何实现K8s-Pod自定义指标弹性伸缩/" target="_blank" rel="noopener">https://xuchao918.github.io/2019/01/10/如何实现K8s-Pod自定义指标弹性伸缩/</a></p>
+</li>
+</ul>
+<h3 id="踩坑"><a href="#踩坑" class="headerlink" title="踩坑"></a>踩坑</h3><p>单位换算</p>
+<blockquote>
+<p>默认情况下，k8s中采集到的指标会在prometheus指标的值上乘1000，然后加个m的单位，可以直接理解为k8s中的1000m即prometheus中的1</p>
+</blockquote>
+<p>指标与应用创建先后顺序</p>
+<blockquote>
+<p>注： 在我实际测试当中，如果先创建应用，后在k8s中生成指标（在prometheus-adapter的configmap中配置指标映射），则hpa无法正常拿到该应用的自定义指标，无法基于其弹性伸缩。当先生成指标，后创建应用时，则正常。还待进一步测试验证。</p>
+</blockquote>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%B7%A5%E4%BD%9C/">工作</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/">程序员</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/k8s/">k8s</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/k8s/">k8s</a>
+                    
+                      <a class="hover-with-bg" href="/tags/docker/">docker</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                <img src="https://gitee.com/matrixcall/bed001/raw/master/hexo/img/wx_gzh.png" srcset="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/img/loading.gif" style="width:450px"/>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/db/sql%E8%AF%AD%E5%8F%A5%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">sql语句执行顺序</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/posts/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/k8s/K8S%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0(%E6%9E%81%E5%AE%A2%E6%97%B6%E9%97%B401-15)/">
+                        <span class="hidden-mobile">K8S学习笔记(极客时间01-15)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <script defer src="https://utteranc.es/client.js"
+          repo="mxcall/mx-comment"
+          issue-term="pathname"
+  
+          label="utterances"
+    
+          theme="github-light"
+          crossorigin="anonymous"
+  >
+  </script>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/js/main.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 3,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "K8S自定义指标弹性伸缩&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://gitee.com/matrixcall/bed001/raw/master/hexo/img/web-icon.png">
+  <link rel="icon" type="image/png" href="https://gitee.com/matrixcall/bed001/raw/master/hexo/img/favicon-light.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="Blog of mxcall">
+  <meta name="author" content="陆压的HUB">
+  <meta name="keywords" content="java,k8s,docker,devops">
+  <title>陆压的HUB</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/xcode.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 100vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>陆压的HUB</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="iconfont icon-home-fill"></i>
+              首页</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">
+              <i class="iconfont icon-archive-fill"></i>
+              归档</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">
+              <i class="iconfont icon-category-fill"></i>
+              分类</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">
+              <i class="iconfont icon-tags-fill"></i>
+              标签</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">
+              <i class="iconfont icon-user-fill"></i>
+              关于</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/posts/comments/">
+              <i class="iconfont icon-twitch-fill"></i>
+              留言</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/links/">
+              <i class="iconfont icon-link-fill"></i>
+              友链</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('https://gitee.com/matrixcall/bed001/raw/master/hexo/img/banner-xcdh.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.1)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            <div class="mt-3 post-meta">
+              
+            </div>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-md">
+        <div class="py-5" id="board"
+          style=margin-top:0>
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/posts/%E6%B5%8B%E8%AF%95HexoAdmin%E6%8F%90%E4%BA%A4/" target="_blank">
+          <img src="https://gitee.com/matrixcall/bed001/raw/master/hexo/img/post-img-light.png" srcset="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/img/loading.gif" alt="测试HexoAdmin提交">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a class="index-header" href="/posts/%E6%B5%8B%E8%AF%95HexoAdmin%E6%8F%90%E4%BA%A4/">测试HexoAdmin提交</a>
+
+      <a href="/posts/%E6%B5%8B%E8%AF%95HexoAdmin%E6%8F%90%E4%BA%A4/" class="index-excerpt">
+        
+        
+          
+        
+        <div>相关学习链接:
+https://www.jianshu.com/p/e542bea49c88
+https://www.jianshu.com/p/68e727dda16d
+
+相关脚本#!&#x2F;bin&#x2F;bash
+npm install -g hexo
+cd &#x2F;home&#x2F;hexo&#x2F;mxcall-hexo&#x2F;mxcall-hexo
+npm insta</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2021-06-07
+          </div>
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/posts/%E7%94%9F%E6%B4%BB/%E9%B8%A1%E6%B1%A4/%E8%BF%99%E4%B8%80%E4%BB%A3%E5%B9%B4%E8%BD%BB%E4%BA%BA%E7%9A%84%E5%8E%8B%E5%8A%9B%E7%9C%9F%E7%9A%84%E6%9B%B4%E5%B0%8F%E5%90%97/" target="_blank">
+          <img src="https://gitee.com/matrixcall/bed001/raw/master/img/2020/06/20200629121954.png" srcset="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/img/loading.gif" alt="这一代年轻人的压力真的更小吗">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a class="index-header" href="/posts/%E7%94%9F%E6%B4%BB/%E9%B8%A1%E6%B1%A4/%E8%BF%99%E4%B8%80%E4%BB%A3%E5%B9%B4%E8%BD%BB%E4%BA%BA%E7%9A%84%E5%8E%8B%E5%8A%9B%E7%9C%9F%E7%9A%84%E6%9B%B4%E5%B0%8F%E5%90%97/">这一代年轻人的压力真的更小吗</a>
+
+      <a href="/posts/%E7%94%9F%E6%B4%BB/%E9%B8%A1%E6%B1%A4/%E8%BF%99%E4%B8%80%E4%BB%A3%E5%B9%B4%E8%BD%BB%E4%BA%BA%E7%9A%84%E5%8E%8B%E5%8A%9B%E7%9C%9F%E7%9A%84%E6%9B%B4%E5%B0%8F%E5%90%97/" class="index-excerpt">
+        
+        
+          
+        
+        <div>这一代年轻人的压力真的更小吗作者：弗兰克扬
+链接：https:&#x2F;&#x2F;www.zhihu.com&#x2F;question&#x2F;403428593&#x2F;answer&#x2F;1305259941
+来源：知乎
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+我们总是听见老一代的人说：你们哪里有我们苦啊？你们现在多幸福啊怎么就有压力了？?难道真的是</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-06-29
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>
+            
+              <a href="/categories/%E7%94%9F%E6%B4%BB/%E9%B8%A1%E6%B1%A4/">鸡汤</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%94%9F%E6%B4%BB/">生活</a>
+            
+              <a href="/tags/%E9%B8%A1%E6%B1%A4/">鸡汤</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/posts/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/javaSE/HashMap%E5%A4%BA%E5%91%BD%E4%BA%8C%E5%8D%81%E4%B8%80%E9%97%AE/" target="_blank">
+          <img src="https://gitee.com/matrixcall/bed001/raw/master/img/2020/05/20200602094547.jpg" srcset="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/img/loading.gif" alt="面试：HashMap 夺命二十一问！">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a class="index-header" href="/posts/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/javaSE/HashMap%E5%A4%BA%E5%91%BD%E4%BA%8C%E5%8D%81%E4%B8%80%E9%97%AE/">面试：HashMap 夺命二十一问！</a>
+
+      <a href="/posts/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/javaSE/HashMap%E5%A4%BA%E5%91%BD%E4%BA%8C%E5%8D%81%E4%B8%80%E9%97%AE/" class="index-excerpt">
+        
+        
+          
+        
+        <div>面试：HashMap 夺命二十一问！1：HashMap 的数据结构？A：哈希表结构（链表散列：数组+链表）实现，结合数组和链表的优点。当链表长度超过 8 时，链表转换为红黑树。
+transient Node&lt;K,V&gt;\[\] table;
+
+
+2：HashMap 的工作原理？HashMap 底层是 hash 数组和单向链表实现，数组中的每个元素都是链表，由 Node 内部类（实现 Ma</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-06-02
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%B7%A5%E4%BD%9C/">工作</a>
+            
+              <a href="/categories/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/">程序员</a>
+            
+              <a href="/categories/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/javaSE/">javaSE</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/java/">java</a>
+            
+              <a href="/tags/%E9%9D%A2%E8%AF%95/">面试</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/posts/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/javaSE/FastJson%E8%BF%81%E7%A7%BB%E8%87%B3Jackson/" target="_blank">
+          <img src="https://gitee.com/matrixcall/bed001/raw/master/img/2020/05/20200529122725.png" srcset="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/img/loading.gif" alt="FastJson迁移至Jackson">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a class="index-header" href="/posts/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/javaSE/FastJson%E8%BF%81%E7%A7%BB%E8%87%B3Jackson/">FastJson迁移至Jackson</a>
+
+      <a href="/posts/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/javaSE/FastJson%E8%BF%81%E7%A7%BB%E8%87%B3Jackson/" class="index-excerpt">
+        
+        
+          
+        
+        <div>FastJson迁移至Jackson背景Fastjson在短期内连续爆出高危漏洞, 导致每次都得改代码上线, 已经粉转黑, 决定迁移到SpringBoot自带的Jackson;
+相关粉转黑文章参考:
+https://zhuanlan.zhihu.com/p/138215906
+替换方法添加依赖Jackson版本等根据springboot版本来选, 因为我用的springboot版本较低, 所以用的</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-05-29
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%B7%A5%E4%BD%9C/">工作</a>
+            
+              <a href="/categories/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/">程序员</a>
+            
+              <a href="/categories/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/javaSE/">javaSE</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/java/">java</a>
+            
+              <a href="/tags/json/">json</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/posts/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/ide/Idea%E8%BF%9B%E9%98%B6%E5%BF%AB%E6%8D%B7%E9%94%AE/" target="_blank">
+          <img src="https://gitee.com/matrixcall/bed001/raw/master/img/2020/05/20200528160129.jpg" srcset="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/img/loading.gif" alt="Idea进阶快捷键">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a class="index-header" href="/posts/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/ide/Idea%E8%BF%9B%E9%98%B6%E5%BF%AB%E6%8D%B7%E9%94%AE/">Idea进阶快捷键</a>
+
+      <a href="/posts/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/ide/Idea%E8%BF%9B%E9%98%B6%E5%BF%AB%E6%8D%B7%E9%94%AE/" class="index-excerpt">
+        
+        
+          
+        
+        <div>Idea进阶快捷键背景用了idea也有2, 3年了, 大部分常用快捷键都已经熟记于心, 逛知乎偶然看到个帖子, 才发现还有下面这些骚操作.
+进阶快捷键每次发现好用的快捷键, 总是当时记住了, 但是后面用的少了就忘记了; 其实记idea快捷键也是有方法的!!
+你仅仅需要记一个神级 快捷键就好了, 其它的记个英文关键字就OK了
+神级快捷键效果1: 仅仅举例, 里面什么操作都可以, 输入关键字即可
+打开</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-05-29
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%B7%A5%E4%BD%9C/">工作</a>
+            
+              <a href="/categories/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/">程序员</a>
+            
+              <a href="/categories/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/ide/">ide</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/idea/">idea</a>
+            
+              <a href="/tags/ide/">ide</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/posts/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/flink/Flink1.10Container%E7%8E%AF%E5%A2%83%E5%AE%9E%E6%88%98(%E8%BD%AC%E8%BD%BD)/" target="_blank">
+          <img src="https://gitee.com/matrixcall/bed001/raw/master/img/2020/05/20200528160605.jpg" srcset="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/img/loading.gif" alt="Flink1.10Container环境实战(转载)">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a class="index-header" href="/posts/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/flink/Flink1.10Container%E7%8E%AF%E5%A2%83%E5%AE%9E%E6%88%98(%E8%BD%AC%E8%BD%BD)/">Flink1.10Container环境实战(转载)</a>
+
+      <a href="/posts/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/flink/Flink1.10Container%E7%8E%AF%E5%A2%83%E5%AE%9E%E6%88%98(%E8%BD%AC%E8%BD%BD)/" class="index-excerpt">
+        
+        
+          
+        
+        <div>Flink1.10Container环境实战(转载)本文转载自Flink社区文章
+https://mp.weixin.qq.com/s?__biz=MzU3Mzg4OTMyNQ==&amp;mid=2247487204&amp;idx=1&amp;sn=eec328dbb96b0073b69065231cf44622&amp;chksm=fd3b80a6ca4c09b02b6ec6e55c3cbc</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-05-28
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%B7%A5%E4%BD%9C/">工作</a>
+            
+              <a href="/categories/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/">程序员</a>
+            
+              <a href="/categories/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/flink/">flink</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/flink/">flink</a>
+            
+              <a href="/tags/k8s/">k8s</a>
+            
+              <a href="/tags/docker/">docker</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/posts/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/k8s/kubectl%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E9%9B%86%E7%BE%A4/" target="_blank">
+          <img src="https://gitee.com/matrixcall/bed001/raw/master/img/2020/05/20200528160755.png" srcset="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/img/loading.gif" alt="kubectl远程连接集群">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a class="index-header" href="/posts/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/k8s/kubectl%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E9%9B%86%E7%BE%A4/">kubectl远程连接集群</a>
+
+      <a href="/posts/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/k8s/kubectl%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E9%9B%86%E7%BE%A4/" class="index-excerpt">
+        
+        
+          
+        
+        <div>kubectl远程连接集群以前一直以为只有拥有 k8s集群节点才能操作集群(kubectl), 后来开发过相关restful API才知道, 集群远程也是可以连的, 实际上也就是master节点监听了指定HTTP端口号, 程序通过给端口号发命令, 来获得各种信息;
+所以, 我们申请相关机器权限的时候, 可以找任何一台机器, 只要它与k8s主节点是网络互通的, 就可以在上面执行相关kubectl命令</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-05-27
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%B7%A5%E4%BD%9C/">工作</a>
+            
+              <a href="/categories/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/">程序员</a>
+            
+              <a href="/categories/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/k8s/">k8s</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/k8s/">k8s</a>
+            
+              <a href="/tags/docker/">docker</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/posts/%E5%A8%B1%E4%B9%90/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/%E5%85%8D%E8%B4%B9%E5%A5%BD%E7%94%A8%E7%9A%84%E5%9B%BE%E5%BA%8AGitee/" target="_blank">
+          <img src="https://gitee.com/matrixcall/bed001/raw/master/img/2020/05/20200528160919.png" srcset="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/img/loading.gif" alt="免费好用的图床Gitee">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a class="index-header" href="/posts/%E5%A8%B1%E4%B9%90/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/%E5%85%8D%E8%B4%B9%E5%A5%BD%E7%94%A8%E7%9A%84%E5%9B%BE%E5%BA%8AGitee/">免费好用的图床Gitee</a>
+
+      <a href="/posts/%E5%A8%B1%E4%B9%90/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/%E5%85%8D%E8%B4%B9%E5%A5%BD%E7%94%A8%E7%9A%84%E5%9B%BE%E5%BA%8AGitee/" class="index-excerpt">
+        
+        
+          
+        
+        <div>免费好用的图床Gitee一直在找一个稳定的(不会跑路)的图床, 发现可以白嫖的都已经失效了( 包括 ‘微博图床’, ‘Imgur图床’等)…
+突发奇想,  能否使用Github当图床呢?  在网上搜寻了一番, 方案可行, 而且还有更优解, 使用Gitee(国内版github)当图床;
+使用Gitee当图床, 总结有如下优势:
+
+快(对比github)
+稳(有提交记录, 删了都能给你找回来)
+方便(</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-05-26
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%A8%B1%E4%B9%90/">娱乐</a>
+            
+              <a href="/categories/%E5%A8%B1%E4%B9%90/%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/">软件使用</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Hexo/">Hexo</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/posts/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/db/sql%E8%AF%AD%E5%8F%A5%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/" target="_blank">
+          <img src="https://gitee.com/matrixcall/bed001/raw/master/img/2020/05/20200528161033.png" srcset="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/img/loading.gif" alt="sql语句执行顺序">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a class="index-header" href="/posts/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/db/sql%E8%AF%AD%E5%8F%A5%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/">sql语句执行顺序</a>
+
+      <a href="/posts/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/db/sql%E8%AF%AD%E5%8F%A5%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/" class="index-excerpt">
+        
+        
+          
+        
+        <div>sql语句执行顺序参考链接https://juejin.im/post/5c1c5301e51d451cdc394d13https://www.cnblogs.com/wang666/p/9887631.htmljoin后添加外部行?  到底有没有这个概念
+个人总结执行顺序1. From
+2. ON
+3. JOIN
+4. WHERE
+5. GROUP BY
+6. SELECT
+7. HAVING
+</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-05-25
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%B7%A5%E4%BD%9C/">工作</a>
+            
+              <a href="/categories/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/">程序员</a>
+            
+              <a href="/categories/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/db/">db</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/sql/">sql</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/posts/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/k8s/K8S%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E6%A0%87%E5%BC%B9%E6%80%A7%E4%BC%B8%E7%BC%A9/" target="_blank">
+          <img src="https://gitee.com/matrixcall/bed001/raw/master/img/2020/05/20200528160755.png" srcset="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/img/loading.gif" alt="K8S自定义指标弹性伸缩">
+        </a>
+      </div>
+    
+    <div class="col-12 col-md-8 mx-auto index-info">
+      <a class="index-header" href="/posts/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/k8s/K8S%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E6%A0%87%E5%BC%B9%E6%80%A7%E4%BC%B8%E7%BC%A9/">K8S自定义指标弹性伸缩</a>
+
+      <a href="/posts/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/k8s/K8S%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E6%A0%87%E5%BC%B9%E6%80%A7%E4%BC%B8%E7%BC%A9/" class="index-excerpt">
+        
+        
+          
+        
+        <div>K8S自定义指标弹性伸缩背景  一般业务都会存在忙/闲时间段, 如斗鱼相关业务, 大部分对外接口服务压力集中在晚上; 又比如某大型赛事开始前, 相关服务压力会剧增; 又比如某大主播直播间出现精彩时刻, 相关弹幕服务流量激增; 可以总结, 某些场景下, 相关服务压力是可以提前预见的, 可提前配置实例扩容, 而更复杂场景下, 无法提前预见, 需要基础设置根据相关监控指标, 动态地扩容相关核心服务, 避</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-05-25
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%B7%A5%E4%BD%9C/">工作</a>
+            
+              <a href="/categories/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/">程序员</a>
+            
+              <a href="/categories/%E5%B7%A5%E4%BD%9C/%E7%A8%8B%E5%BA%8F%E5%91%98/k8s/">k8s</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/k8s/">k8s</a>
+            
+              <a href="/tags/docker/">docker</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/js/main.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/js/lazyload.js" ></script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "我们的征途是星辰大海 &nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/gh/mxcall/mxcall.github.io@master/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
