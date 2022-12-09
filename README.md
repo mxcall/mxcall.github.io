@@ -1,6 +1,7 @@
 
 ## 🍋 致谢
-> 博客地址: https://mxcall.github.io
+> 博客Github地址: https://mxcall.github.io
+> 博客Gitee 地址: https://mxcall.gitee.io
 
 - 网站使用 [docsify](https://docsify.js.org/#/zh-cn/) 生成
 - 网站样式基于 [https://bytesfly.vercel.app/](https://bytesfly.vercel.app/) 修改
