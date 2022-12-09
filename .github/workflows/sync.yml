@@ -8,6 +8,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - name: add gitee hosts
+      run: |
+        echo "182.255.34.126  gitee.com " >>/etc/hosts
     - name: Sync to Gitee
       uses: wearerequired/git-mirror-action@master
       env:
