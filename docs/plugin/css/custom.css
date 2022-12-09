@@ -1,0 +1,38 @@
+section.cover.has-mask .mask {
+  /* background-image: linear-gradient(hsla(0, 0%, 100%, 0.05),hsla(0, 0%, 100%, 0.05)); */
+  background-color: transparent;
+  opacity: 1;
+}
+
+section.cover h1 .anchor span{
+  color: #ffffff;
+}
+section.cover h2 .anchor span{
+  color: #ffffff;
+}
+
+section.cover h3 .anchor span{
+  color: #ffffff;
+}
+
+section.cover .cover-main>p:last-child a:first-child  {
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+
+section.cover .cover-main>p:last-child a .iconfont {
+  font-size: 1em;
+}
+
+/*结束文章符号*/
+.over {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #000001;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 40px;
+  margin: 20px auto 5px;
+  text-shadow: 0 0 black;
+}

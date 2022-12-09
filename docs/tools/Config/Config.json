@@ -1,0 +1,12 @@
+{
+  "HomePath": "D:\\04_workspace\\1work_front\\workspace_001\\luya-mainpage\\docs",
+  "IgnoreFile": [
+    "README copy.md","_coverpage.md","_navbar.md"
+  ],
+  "IgnoreDir": [
+    ".git","plugin","99_archives","about","tools"
+  ],
+  "IgnoreDirNameContain": [
+    ".assets"
+  ]
+}
