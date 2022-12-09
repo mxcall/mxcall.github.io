@@ -11,6 +11,7 @@ defaults:
 jobs:
   build:
     runs-on: ubuntu-latest
+    steps:
     - name: Sync to Gitee
       uses: wearerequired/git-mirror-action@master
       env:
