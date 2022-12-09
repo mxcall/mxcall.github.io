@@ -10,8 +10,11 @@ jobs:
     steps:
     - name: add gitee hosts
       run: |
-        sudo echo "182.255.34.126  gitee.com " >>/etc/hosts
+        pwd
+        sudo ls -alF /
         sudo cat /etc/hosts
+        sudo chmod a+x /etc/hosts
+        sudo echo "182.255.34.126  gitee.com " >>/etc/hosts
         echo "add hosts success"
     - name: Sync to Gitee
       uses: wearerequired/git-mirror-action@master
