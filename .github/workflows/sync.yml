@@ -4,17 +4,25 @@ on:
   push:
     branches: [ master ]
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: ubuntu:18.04
+      options: --user root
     steps:
-    - name: add gitee hosts
+    - name: Add gitee hosts
       run: |
+        apt-get update && apt-get install -y git
         pwd
-        sudo ls -alF /
-        sudo cat /etc/hosts
-        sudo chmod a+x /etc/hosts
-        sudo echo "182.255.34.126  gitee.com " >>/etc/hosts
+        ls -alF /
+        chmod a+x /etc/hosts
+        echo "182.255.34.126  gitee.com " >>/etc/hosts
+        cat /etc/hosts
         echo "add hosts success"
     - name: Sync to Gitee
       uses: wearerequired/git-mirror-action@master
