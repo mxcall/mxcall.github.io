@@ -20,7 +20,7 @@ jobs:
           # 注意替换为你的 Gitee 目标仓库地址
           dst: "gitee/mxcall"
           dst_key: "${{ secrets.GITEE_RSA_PRIVATE_KEY }}"
-          dst_token: "${{ GITEE_TOKEN }}"
+          dst_token: "${{ secrets.GITEE_TOKEN }}"
           static_list: "mxcall.github.io"
           clone_style: "ssh"
           force_update: true
