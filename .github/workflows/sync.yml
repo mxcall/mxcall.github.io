@@ -10,18 +10,21 @@ defaults:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
     - name: Sync to Gitee
-      uses: wearerequired/git-mirror-action@master
-      env:
-          # 注意在 Settings->Secrets 配置 GITEE_RSA_PRIVATE_KEY
-          SSH_PRIVATE_KEY: ${{ secrets.GITEE_RSA_PRIVATE_KEY }}
+      uses: Yikun/hub-mirror-action@master
       with:
           # 注意替换为你的 GitHub 源仓库地址
-          source-repo: "git@github.com:mxcall/mxcall.github.io.git"
+          src: "github/mxcall"
           # 注意替换为你的 Gitee 目标仓库地址
-          destination-repo: "git@gitee.com:mxcall/mxcall.git"
+          dst: "gitee/mxcall"
+          dst_key: "${{ secrets.GITEE_RSA_PRIVATE_KEY }}"
+          dst_token: "${{ GITEE_TOKEN }}"
+          static_list: "mxcall.github.io"
+          clone_style: "ssh"
+          force_update: true
+          debug: true
 
     - name: Build Gitee Pages
       uses: yanglbme/gitee-pages-action@master
