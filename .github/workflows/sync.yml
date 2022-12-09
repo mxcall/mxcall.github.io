@@ -22,7 +22,7 @@ jobs:
           dst_key: "${{ secrets.GITEE_RSA_PRIVATE_KEY }}"
           dst_token: "${{ secrets.GITEE_TOKEN }}"
           static_list: "mxcall.github.io"
-          clone_style: "http"
+          clone_style: "https"
           force_update: true
           debug: true
 
