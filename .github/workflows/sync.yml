@@ -11,19 +11,6 @@ defaults:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container:
-      image: ubuntu:18.04
-      options: --user root
-    steps:
-    - name: Add gitee hosts
-      run: |
-        apt-get update && apt-get install -y git
-        pwd
-        ls -alF /
-        chmod a+x /etc/hosts
-        echo "182.255.34.126  gitee.com " >>/etc/hosts
-        cat /etc/hosts
-        echo "add hosts success"
     - name: Sync to Gitee
       uses: wearerequired/git-mirror-action@master
       env:
