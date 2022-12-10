@@ -1,8 +1,8 @@
 # sql语句执行顺序
 ## 参考链接
-https://juejin.im/post/5c1c5301e51d451cdc394d13
-https://www.cnblogs.com/wang666/p/9887631.html
-join后添加外部行?  到底有没有这个概念
+[https://juejin.im/post/5c1c5301e51d451cdc394d13](https://juejin.im/post/5c1c5301e51d451cdc394d13)  
+https://www.cnblogs.com/wang666/p/9887631.html  
+join后添加外部行?  到底有没有这个概念  
  
 ## 个人总结
 ### 执行顺序
@@ -45,7 +45,7 @@ LIMIT <limit_number>
 但是左边条件的作用不是过滤行, 而是过滤笛卡尔积的范围, 即仅仅笛卡尔积指定条件的左表行+右表行, 其他左表行对应的右表内容标记为NULL
 所以总结说来, on 后面的条件, 不是过滤行(where才是过滤行), 而是过滤参与笛卡尔积的范围(**左右哪些行参与笛卡尔积**), 没参与的就标记内容为NULL
 - 两张表的数据量比较大，又需要连接查询时，应该使用 FROM table1 JOIN table2 ON xxx的语法，避免使用 FROM table1,table2 WHERE xxx 的语法，因为后者会在内存中先生成一张数据量比较大的笛卡尔积表，增加了内存的开销
- 
+
 ## 别人总结
 left join中关于where和on条件的几个知识点：
     1.多表left join是会生成一张临时表，并返回给用户
