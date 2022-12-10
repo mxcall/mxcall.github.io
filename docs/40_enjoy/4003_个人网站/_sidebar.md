@@ -1,3 +1,4 @@
 - [返回上一级 [40_enjoy]](40_enjoy/)
 - [4003_个人网站](40_enjoy/4003_个人网站/)
   - [Markdown美化工具](40_enjoy/4003_个人网站/Markdown美化工具.md)
+  - [自建图床服务器picx](40_enjoy/4003_个人网站/自建图床服务器picx.md)
