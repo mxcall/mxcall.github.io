@@ -424,8 +424,8 @@
       alias: {
         '/.*/_navbar.md': '/_navbar.md',
         '/.*/_sidebar.md': '/_sidebar.md',
-        '/README': '/README_EN',
-        '/README.md': '/README_EN.md',
+        // '/README': '/README_EN',
+        // '/README.md': '/README_EN.md',
       },
       homepage: '/README_EN.md',
       executeScript: true,//执行页面上的脚本。只解析第一个脚本标记（演示）。如果存在Vue，则默认开
@@ -437,14 +437,16 @@
       //executeScript: true,//执行页面上的脚本，仅解析第一个脚本标签
       // sidebarDisplayLevel: 1,
       search: {
-        paths: 'auto',
+        // paths: 'auto', //加上后无法搜索标题
+        hideOtherSidebarContent: true,
         placeholder: '🔍 搜索',
         noData: '😒 找不到结果',
         // Headline depth, 1 - 6
         depth: 6,
-        maxAge: 86400000, // 过期时间，单位毫秒，默认一天
+        //maxAge: 60000, // 过期时间，单位毫秒，默认一天 todo
         //maxAge: 86400000, // 过期时间，单位毫秒，默认一天
         namespace: 'LuyasHome',
+        sidebarDisplayLevel: 1,
       },
       mergeNavbar: true,
       footer: {
