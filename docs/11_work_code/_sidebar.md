@@ -2,6 +2,7 @@
 - [11_work_code](11_work_code/)
   - [1101_common](11_work_code/1101_common/)
   - [1102_基础组件](11_work_code/1102_基础组件/)
+    - [CDH(Cloudera)离线安装和踩坑](11_work_code/1102_基础组件/CDH(Cloudera)离线安装和踩坑.md)
   - [1103_极客时间](11_work_code/1103_极客时间/)
   - [ai](11_work_code/ai/)
   - [auth](11_work_code/auth/)

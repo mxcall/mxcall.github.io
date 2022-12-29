@@ -1,2 +1,3 @@
 - [返回上一级 [11_work_code]](11_work_code/)
 - [1102_基础组件](11_work_code/1102_基础组件/)
+  - [CDH(Cloudera)离线安装和踩坑](11_work_code/1102_基础组件/CDH(Cloudera)离线安装和踩坑.md)
