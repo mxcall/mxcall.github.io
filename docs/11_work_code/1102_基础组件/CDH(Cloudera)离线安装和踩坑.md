@@ -273,24 +273,24 @@ systemctl start cloudera-scm-server
 - 选择版本以后会出现第二个欢迎界面，不过这个是安装集群的欢迎页：
 - 选择主机,这一步是要搜索并选择用于安装CDH集群的主机，在主机名称后面的输入框中输入各个节点的hostname，中间使用英文逗号分隔开，然后点击搜索，在结果列表中勾选要安装CDH的节点即可：
 
-![CM离线安装_配置主机](https://cdn.jsdelivr.net/gh/matrixcall/bed001@master/picx/2022/12/111.4krzalhyl080.jpg)
+![CM离线安装_配置主机](https://gcore.jsdelivr.net/gh/matrixcall/bed001@master/picx/2022/12/111.4krzalhyl080.jpg)
 
 - 指定存储库`Cloudera Manager Agent`这里选择自定义，填写上面使用httpd搭建好的Cloudera Manager YUM 库URL：
 - CDH and other software 如果我们之前的【配置本地Parcel存储库】步骤操作无误的话，这里会自动选择【使用Parcel】，并加载出CDH版本，但是这里一直没有识别出来，还报了如下错误：
 
-![CM离线安装_识别不到parcel-repo](https://cdn.jsdelivr.net/gh/matrixcall/bed001@master/picx/2022/12/xxx.2ifj59dr41k0.jpg)
+![CM离线安装_识别不到parcel-repo](https://gcore.jsdelivr.net/gh/matrixcall/bed001@master/picx/2022/12/xxx.2ifj59dr41k0.jpg)
 
 找到问题原因：是因为parcel文件的`.sha1`需要改成`.sha`，修改完以后，就能识别出来了
 这里一开始还跟着教程先用yum安装了`cloudera-manager-agent`，安装完了更报错，这里不要安装
 
-![CM离线安装_正常识别到parcel-repo](https://cdn.jsdelivr.net/gh/matrixcall/bed001@master/picx/2022/12/xxx.3phcsf5flu80.jpg)
+![CM离线安装_正常识别到parcel-repo](https://gcore.jsdelivr.net/gh/matrixcall/bed001@master/picx/2022/12/xxx.3phcsf5flu80.jpg)
 
 
 
 - JDK安装选项，这里jdk已经安装了，不要勾选
 - SSH登录配置，用于配置集群主机之间的SSH登录，填写root用户的密码，根据集群配置填写合适的【同时安装数量】值即可：
 
-  ![CM离线安装_提供SSH登录凭据](https://cdn.jsdelivr.net/gh/matrixcall/bed001@master/picx/2022/12/xxx.3fvnbztgzie0.jpg)
+  ![CM离线安装_提供SSH登录凭据](https://gcore.jsdelivr.net/gh/matrixcall/bed001@master/picx/2022/12/xxx.3fvnbztgzie0.jpg)
 
 
 

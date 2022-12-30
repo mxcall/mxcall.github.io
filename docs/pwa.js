@@ -11,7 +11,12 @@ const HOSTNAME_WHITELIST = [
     self.location.hostname,
     'fonts.gstatic.com',
     'fonts.googleapis.com',
-    'cdn.jsdelivr.net'
+    'fastly.jsdelivr.net',
+    'testingcf.jsdelivr.net',
+    'gcore.jsdelivr.net',
+    'quantil.jsdelivr.net',
+    'originfastly.jsdelivr.net',
+    
 ]
 
 // The Util Function to hack URLs of intercepted requests

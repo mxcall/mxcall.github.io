@@ -8,7 +8,7 @@ gitee 图床国内虽然快, 但是偶尔302 无法访问 , 所以准备回迁�
 - 安全,简单, 最好web部署
 
 ## 业界方案
-参考文档: https://blog.csdn.net/wbsu2004/article/details/121154470   
+参考文档: https://blog.csdn.net/wbsu2004/article/details/121154470  
 PicX 官方网站：https://picx.xpoet.cn/
 ### 构建镜像
 官方虽然有很详细的使用方法，但没有提供安装方法，只有一个网站，所以想要私有化部署，需要我们自己打包镜像, 如果你不想自己构建，可以跳过，直接阅读下一章节  
@@ -59,6 +59,19 @@ wbsu2003/picx:latest
 参考业界方案, 目前是 picgo和 picx都可以用;  
 发布文章用docsify;  
 文章中图床用picx/picgo 上传至github的小号.  
-> 还踩了个坑, 个人导航网站用gitee_page发布, 
-> 访问mxcall.gitee.io/homepage/可以 , mxcall.gitee.io/homepage就不通(少个斜杠), 
+> 还踩了个坑, 个人导航网站用gitee_page发布,
+> 访问mxcall.gitee.io/homepage/可以 , mxcall.gitee.io/homepage就不通(少个斜杠),
 > 目测是gitee_page的nginx配置问题
+
+### 访问报错参考修改chrome配置
+https://www.cnblogs.com/whm-blog/p/16418314.html
+配置chrome选项为disable 
+chrome://flags/#block-insecure-private-network-requests
+### cdn访问图挂了
+尝试用https://cd(去掉此处文字和括号)n.jsdelivr.net/ 换为 https://fast(去掉此处文字和括号)ly.jsdelivr.net/
+或者其他
+- f(去掉此处文字和括号)astly.jsdelivr.net
+- t(去掉此处文字和括号)estingcf.jsdelivr.net  (test ok)
+- g(去掉此处文字和括号)core.jsdelivr.net (test ok)
+- q(去掉此处文字和括号)uantil.jsdelivr.net
+- originfas(去掉此处文字和括号)tly.jsdelivr.net
