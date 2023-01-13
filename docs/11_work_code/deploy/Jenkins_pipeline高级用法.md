@@ -28,7 +28,7 @@ jenkins 有 2 种流水线分为`声明式流水线`与`脚本化流水线`，�
 - stage：定义流水线的执行过程（相当于一个阶段），比如下文所示的 Build、Test、Deploy， 但是这个名字是根据实际情况进行定义的，并非固定的名字
 - steps：执行某阶段具体的步骤。
 
-```
+```python
 //Jenkinsfile (Declarative Pipeline)
 pipeline {
   agent any
@@ -61,7 +61,7 @@ pipeline {
 - node：在任何可用的代理上执行流水线或它的任何阶段，也可以指定到具体的节点
 - stage：和声明式的含义一致，定义流水线的阶段。Stage 块在脚本化流水线语法中是可选的，然而在脚本化流水线中实现 stage 块，可以清楚地在 Jenkins UI 界面中显示每个 stage 的任务子集。
 
-```
+```python
 //Jenkinsfile (Scripted Pipeline)
 node {
   stage('Build') {
@@ -85,7 +85,7 @@ node {
 
 声明式流水线必须包含在一个 Pipeline 块中，比如是一个 Pipeline 块的格式
 
-```
+```python
 pipeline {
   /* insert Declarative Pipeline here */
 }
@@ -110,7 +110,7 @@ Agent 表示整个流水线或特定阶段中的步骤和命令执行的位置�
 
 在任何可用的代理上执行流水线，配置语法
 
-```
+```python
 pipeline {
   agent any
 }
@@ -120,7 +120,7 @@ pipeline {
 
 表示该 Pipeline 脚本没有全局的 agent 配置。当顶层的 agent 配置为 none 时， 每个 stage 部分都需要包含它自己的 agent。配置语法
 
-```
+```python
 pipeline {
   agent none
   stages {
@@ -135,7 +135,7 @@ pipeline {
 
 以节点标签形式选择某个具体的节点执行 Pipeline 命令，例如：`agent { label 'my-defined-label' }`。节点需要提前配置标签。
 
-```
+```python
 pipeline {
   agent none
     stages {
@@ -153,7 +153,7 @@ pipeline {
 
 和 label 配置类似，只不过是可以添加一些额外的配置，比如 customWorkspace(设置默认工作目录)
 
-```
+```python
 pipeline {
   agent none
     stages {
@@ -283,7 +283,7 @@ spec:
 
 kubernetes 示例
 
-```
+```python
 pipeline {
   agent {
     kubernetes {
@@ -353,7 +353,7 @@ spec:
 
 docker 的示例
 
-```
+```python
 pipeline {
   agent none
   stages {
@@ -396,7 +396,7 @@ Post 可以定义在 Pipeline 或 stage 中，目前支持以下条件
 
 一般情况下 post 部分放在流水线的底部，比如本实例，无论 stage 的完成状态如何，都会输出一条 I will always say Hello again!信息
 
-```
+```python
 //Jenkinsfile (Declarative Pipeline)
 pipeline {
   agent any
@@ -422,7 +422,7 @@ pipeline {
 
 也可以将 post 写在 stage，下面示例表示 Example1 执行失败执行 post。
 
-```
+```python
 //Jenkinsfile (Declarative Pipeline)
 pipeline {
   agent any
@@ -445,7 +445,7 @@ pipeline {
 
 Steps 部分在给定的 stage 指令中执行的一个或多个步骤，比如在 steps 定义执行一条 shell 命令
 
-```
+```python
 //Jenkinsfile (Declarative Pipeline)
 pipeline {
   agent any
@@ -461,7 +461,7 @@ pipeline {
 
 或者是使用 sh 字段执行多条指令
 
-```
+```python
 //Jenkinsfile (Declarative Pipeline)
 pipeline {
   agent any
@@ -572,7 +572,7 @@ Jenkins 流水线支持很多内置指令，比如 retry 可以对失败的步�
 
 定义在 pipeline 中
 
-```
+```python
 pipeline {
   agent any
   options {
@@ -602,7 +602,7 @@ pipeline {
 
 Option 除了写在 Pipeline 顶层，还可以写在 stage 中，但是写在 stage 中的 option 仅支持 retry、 timeout、timestamps，或者是和 stage 相关的声明式选项，比如 skipDefaultCheckout。处于 stage 级别的 options 写法如下
 
-```
+```python
 pipeline {
   agent any
   stages {
@@ -644,7 +644,7 @@ Parameters 提供了一个用户在触发流水线时应该提供的参数列表
 
 ##### 示例
 
-```
+```python
 pipeline {
   agent any
   parameters {
@@ -681,7 +681,7 @@ pipeline {
 
 注意：H 的意思不是 HOURS 的意思，而是 Hash 的缩写。主要为了解决多个流水线在同一时间同时运行带来的系统负载压力。
 
-```
+```python
 pipeline {
   agent any
   triggers {
@@ -705,7 +705,7 @@ Upstream 可以根据上游 job 的执行结果决定是否触发该流水线。
 
 目前支持的状态有 `SUCCESS`、`UNSTABLE`、`FAILURE`、`NOT_BUILT`、`ABORTED` 等。
 
-```
+```python
 pipeline {
   agent any
   triggers {
@@ -735,7 +735,7 @@ Input 字段可以实现在流水线中进行交互式操作，比如选择要�
 
 假如需要配置一个提示消息为“还继续么”、确认按钮为“继续”、提供一个 PERSON 的变量的参数，并且只能由登录用户为 alice 和 bob 提交的 input 流水线
 
-```
+```python
 pipeline {
   agent any
   stages {
@@ -776,7 +776,7 @@ When 也可以结合 not、allOf、anyOf 语法达到更灵活的条件匹配。
 
 示例：当分支为 main 时执行 Example Deploy 步骤
 
-```
+```python
 pipeline {
   agent any
   stages {
@@ -799,7 +799,7 @@ pipeline {
 
 也可以同时配置多个条件，比如分支是 production，而且 DEPLOY_TO 变量的值为 main 时，才执行 Example Deploy
 
-```
+```python
 pipeline {
   agent any
   environment {
@@ -821,7 +821,7 @@ pipeline {
 
 也可以使用 anyOf 进行匹配其中一个条件即可，比如分支为 main 或 DEPLOY_TO 为 main 或 master 时执行 Deploy
 
-```
+```python
 pipeline {
   agent any
   stages {
@@ -843,7 +843,7 @@ pipeline {
 
 也可以使用 expression 进行正则匹配，比如当 BRANCH_NAME 为 main 或 master，并且 DEPLOY_TO 为 master 或 main 时才会执行 Example Deploy
 
-```
+```python
 pipeline {
   agent any
   stages {
@@ -874,7 +874,7 @@ pipeline {
 
 示例
 
-```
+```python
 pipeline {
   agent none
   stages {
@@ -900,7 +900,7 @@ pipeline {
 
 在声明式流水线中可以使用 Parallel 字段，即可很方便的实现并发构建，比如对分支 A、B、 C 进行并行处理
 
-```
+```python
 pipeline {
   agent any
   stages {
@@ -987,7 +987,7 @@ WORKSPACE：/bitnami/jenkins/home/workspace/print_env
 
 上述变量会保存在一个 Map 中，可以使用 env.BUILD_ID 或 env.JENKINS_URL 引用某个内置变量
 
-```
+```python
 pipeline {
   agent any
   stages {
@@ -1021,7 +1021,7 @@ pipeline {
 - `returnStdout`：将命令的执行结果赋值给变量，比如下述的命令返回的是 clang，此时 CC 的值为“clang”。
 - `returnStatus`：将命令的执行状态赋值给变量，比如下述命令的执行状态为 1，此时 EXIT_STATUS 的值为 1。
 
-```
+```python
 //Jenkinsfile (Declarative Pipeline)
 pipeline {
   agent any
@@ -1058,7 +1058,7 @@ Jenkins 的声明式流水线语法有一个 credentials()函数，它支持 sec
 
 本实例演示将两个 Secret 文本凭证分配给单独的环境变量来访问 Amazon Web 服务，需要 提前创建这两个文件的 credentials（实践的章节会有演示），Jenkinsfile 文件的内容如下
 
-```
+```python
 //Jenkinsfile (Declarative Pipeline)
 pipeline {
   agent any
@@ -1085,7 +1085,7 @@ pipeline {
 
 本示例用来演示 credentials 账号密码的使用，比如使用一个公用账户访问 Bitbucket、GitLab、 Harbor 等。假设已经配置完成了用户名密码形式的 credentials，凭证 ID 为 harbor-account
 
-```
+```python
 //Jenkinsfile (Declarative Pipeline)
 pipeline {
   agent any
@@ -1113,7 +1113,7 @@ pipeline {
 
 假如已经配置好了一个 kubeconfig 文件，此时可以在 Pipeline 中引用该文件
 
-```
+```python
 //Jenkinsfile (Declarative Pipeline)
 pipeline {
   agent {
