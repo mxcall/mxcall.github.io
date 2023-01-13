@@ -10,6 +10,7 @@
   - [db](11_work_code/db/)
     - [sql语句执行顺序](11_work_code/db/sql语句执行顺序.md)
   - [deploy](11_work_code/deploy/)
+    - [Jenkins_pipeline高级用法](11_work_code/deploy/Jenkins_pipeline高级用法.md)
   - [designPattern](11_work_code/designPattern/)
   - [docker](11_work_code/docker/)
   - [elk](11_work_code/elk/)
